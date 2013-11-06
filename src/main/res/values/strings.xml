@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">C3 Team Chooser</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_section1">Register</string>
+    <string name="title_section2">Make Teams</string>
+    <string name="title_section3">Settings</string>
+
+</resources>
