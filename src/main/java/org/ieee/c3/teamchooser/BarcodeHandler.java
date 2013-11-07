@@ -1,4 +1,7 @@
-import java.util.Integer;
+package org.ieee.c3.teamchooser;
+
+import android.app.Activity;
+import android.content.Intent;
 
 public class BarcodeHandler
 {
@@ -14,13 +17,13 @@ public class BarcodeHandler
      * to read a barcode
      */
     private int m_isBarcodeSet;
-    
+
     // global static variables
     private static final int BARCODE = 0;
 
     /**
      * BarcodeHandler constructor
-     * This doesn't do much, it just initializes m_barcode to 
+     * This doesn't do much, it just initializes m_barcode to
      * some default value and sets m_isBarcodeSet to 0
      */
     public BarcodeHandler()
@@ -28,32 +31,32 @@ public class BarcodeHandler
         m_barcode = 0;
         m_isBarcodeSet = 0;
     }
-    
+
     /**
      * reqBarcode will initialize a barcode reader Intent
      * and then launch it. The results are handled at
      * onActivityResult
      *
-     * @see onActivityResult()
+     * @seez onActivityResult()
      */
     protected void reqBarcode()
     {
         Intent intent = new Intent("com.google.zxing.client.android.SCAN");
         intent.putExtra("com.google.zxing.client.android.SCAN.SCAN_MODE", "ONE_D_MODE");
-        startActivityForResult(intent, BARCODE);
+        //startActivityForResult(intent, BARCODE);
     }
 
     /**
      * onActivityResult handles the intent which was launched by
      * reqBarcode
      *
-     * @see reqBarcode()
+     * @seez reqBarcode()
      */
-    protected void onActivityResult (int requestCode, int resultCode, Intent data)
+    protected void onActivityResult (int requestCode, int resultCode, Intent intent)
     {
         if (requestCode == BARCODE)
         {
-            if (resultCode == RESULT_OK)
+            if (resultCode == 0)// RESULT_OK)
             {
                 String contents = intent.getStringExtra("SCAN_RESULT");
                 String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
