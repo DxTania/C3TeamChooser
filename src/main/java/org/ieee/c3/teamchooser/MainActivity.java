@@ -1,10 +1,16 @@
 package org.ieee.c3.teamchooser;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -12,6 +18,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -38,10 +45,14 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      */
     ViewPager mViewPager;
 
+    public List<String> todaysIDs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        todaysIDs = new ArrayList<String>();
 
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();
@@ -113,9 +124,17 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
-            // Return a DummySectionFragment (defined as a static inner class
-            // below) with the page number as its lone argument.
-            Fragment fragment = new RegisterFragment();
+            Fragment fragment;
+            switch(position) {
+                case 0:
+                    fragment = new RegisterFragment();
+                    break;
+                case 1:
+                    fragment = new MakeTeamsFragment();
+                    break;
+                default:
+                    fragment = new PeopleFragment();
+            }
             //Bundle args = new Bundle();
             //args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
             //fragment.setArguments(args);
@@ -143,32 +162,69 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         }
     }
 
-    /**
-     * A dummy fragment representing a section of the app, but that simply
-     * displays dummy text.
-     */
-    public static class DummySectionFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        public static final String ARG_SECTION_NUMBER = "section_number";
-
-        public DummySectionFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main_dummy, container, false);
-            TextView dummyTextView = (TextView) rootView.findViewById(R.id.section_label);
-            dummyTextView.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-        }
-    }
-
     public static void toast(String text, Context context) {
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+    }
+
+    public void addId(String id) {
+        toast("Adding id " + id, this);
+        todaysIDs.add(id);
+    }
+
+    public List<String> getTodaysIDs() {
+        return todaysIDs;
+    }
+
+    /**
+     * This function searches people.csv for a specific id
+     * @param id The id to search for
+     * @param context The context to use for file opening
+     * @return String name The name if found, empty string otherwise
+     */
+    public static String findEntry(String id, Context context) {
+        FileInputStream fos;
+        Log.d("Main Activity", "Searching...");
+        try {
+            fos = context.openFileInput("people.csv");
+        } catch (FileNotFoundException e) {
+            Log.d("Main Activity", "File not found!");
+            MainActivity.toast("Something went wrong! :(", context);
+            return null;
+        }
+        // Look for an entry with this id
+        int content;
+        String curId = "";
+        String name = "";
+        try {
+            while((content = fos.read()) != -1) {
+                char c = (char) content;
+                if (c == ',' || c == '\n') {
+                    if (curId.equals(id)) {
+                        break;
+                    } else {
+                        curId = "";
+                    }
+                } else {
+                    curId += c;
+                }
+            }
+            // If we found the id, find the name of the person
+            if (curId != "") {
+                while((content = fos.read()) != -1) {
+                    char c = (char) content;
+                    if (c == ',') {
+                        break;
+                    } else {
+                        name += c;
+                    }
+                }
+            }
+            fos.close();
+        } catch(IOException e) {
+            Log.d("Main Activity", "IO Exception");
+            MainActivity.toast("Something went wrong! :(", context);
+        }
+        return name;
     }
 
 }

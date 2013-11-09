@@ -3,13 +3,11 @@ package org.ieee.c3.teamchooser;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.Toast;
-
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -22,8 +20,6 @@ public class NewPersonActivity extends Activity {
     private Button submitButton;
     private RadioGroup exp;
 
-    public NewPersonActivity() {}
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +30,10 @@ public class NewPersonActivity extends Activity {
         submitButton = (Button) findViewById(R.id.submitPerson);
         exp = (RadioGroup) findViewById(R.id.experience);
 
+        // Set UID to what was scanned / manually input
+        uidField.setText(getIntent().getStringExtra("ID"));
+
+        // Clicking submit writes the entry to a file
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,25 +43,9 @@ public class NewPersonActivity extends Activity {
                 String uid = uidField.getText().toString();
                 int expValue = getExpValue(exp.getCheckedRadioButtonId());
                 if (expValue == 0) return;
-                // Write values to csv file
-                FileOutputStream fos;
-                try {
-                   fos = openFileOutput("people.csv", Context.MODE_PRIVATE);
-                } catch (FileNotFoundException e) {
-                    MainActivity.toast("Something went wrong! :(", getParent());
-                    return;
+                if(writeEntryToFile(uid, name, email, expValue)) {
+                    MainActivity.toast("Thanks for registering!", NewPersonActivity.this);
                 }
-                String csvEntry = name + ", " + email + ", "
-                        + uid + ", " + String.valueOf(expValue) + "\n";
-                try {
-                    fos.flush();
-                    fos.write(csvEntry.getBytes());
-                    fos.close();
-                } catch (IOException e) {
-                    MainActivity.toast("Something went wrong! :(", getParent());
-                    return;
-                }
-                MainActivity.toast("Thanks for registering!", getParent());
                 finish();
             }
         });
@@ -90,19 +74,35 @@ public class NewPersonActivity extends Activity {
         }
     }
 
-    public void onRadioButtonClicked(View view) {
-        int content;
-        String file = "";
+    /**
+     * Writes a csv entry to the end of people.csv
+     * @param uid The student's Bruincard UID
+     * @param name The student's name
+     * @param email The student's email
+     * @param expValue The student's experience with coding
+     * @return boolean Succesfull or not
+     */
+    private boolean writeEntryToFile(String uid, String name, String email, int expValue) {
+        // Write values to csv file
+        FileOutputStream fos;
         try {
-            FileInputStream fos = openFileInput("people.csv");
-            while((content = fos.read()) != -1) {
-                file += (char) content;
-            }
+            fos = openFileOutput("people.csv", Context.MODE_APPEND);
         } catch (FileNotFoundException e) {
-
-        } catch (IOException e) {
-
+            Log.d("NewPerson Activity", "File not found");
+            MainActivity.toast("Something went wrong! :(", NewPersonActivity.this);
+            return false;
         }
-        MainActivity.toast(file, this);
+        String csvEntry = uid + "," + name + ","
+                + email + "," + String.valueOf(expValue) + "\n\n";
+        try {
+            fos.write(csvEntry.getBytes());
+            fos.close();
+            Log.d("NewPerson Activity", "Wrote to file");
+        } catch (IOException e) {
+            Log.d("NewPerson Activity", "IO Exception!");
+            MainActivity.toast("Something went wrong! :(", NewPersonActivity.this);
+            return false;
+        }
+        return true;
     }
 }

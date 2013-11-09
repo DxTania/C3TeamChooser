@@ -26,6 +26,10 @@
             android:name="org.ieee.c3.teamchooser.NewPersonActivity"
             android:label="New Person">
         </activity>
+        <activity
+            android:name="org.ieee.c3.teamchooser.ManualActivity"
+            android:label="Manual Entry">
+        </activity>
     </application>
 
 </manifest>
