@@ -29,19 +29,7 @@
     <option name="TOOL_WINDOW_LOG_LEVEL" value="DEBUG" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="786700cf-f7c5-41a9-97dc-8fb4384b848a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/SettingsFragment.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/BarcodeHandler.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/PeopleFragment.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_main_dummy.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/manual_uid_entry.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/MainActivity.java" afterPath="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/MakeTeamsFragment.java" afterPath="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/MakeTeamsFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/ManualActivity.java" afterPath="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/ManualActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/NewPersonActivity.java" afterPath="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/NewPersonActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/RegisterFragment.java" afterPath="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/RegisterFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_teams.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_teams.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/people_list.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/people_list.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/src/main/res/values/strings.xml" />
+    <list default="true" id="786700cf-f7c5-41a9-97dc-8fb4384b848a" name="Default" comment="Added more to settings&#10;">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="C3TeamChooser.iws" />
@@ -111,7 +99,7 @@
           <file leaf-file-name="RegisterFragment.java" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/RegisterFragment.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="56" column="7" selection-start="1879" selection-end="1879" vertical-scroll-proportion="0.14569536" vertical-offset="520" max-vertical-offset="1380">
+                <state line="78" column="54" selection-start="3018" selection-end="3018" vertical-scroll-proportion="0.58278143" vertical-offset="520" max-vertical-offset="1380">
                   <folding>
                     <element signature="e#1182#1484#0" expanded="true" />
                     <element signature="e#1473#1474#0" expanded="true" />
@@ -608,7 +596,11 @@
       <created>1384028646422</created>
       <updated>1384028646422</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Added more to settings">
+      <created>1384207877290</created>
+      <updated>1384207877290</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -658,7 +650,8 @@
     </option>
     <MESSAGE value="Jacob, fix req barcodeeee.....in register fragment. Not sure what you were trying to go for w/ barcode handler considering it is not an activity." />
     <MESSAGE value="Lots of stuff." />
-    <option name="LAST_COMMIT_MESSAGE" value="Lots of stuff." />
+    <MESSAGE value="Added more to settings" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added more to settings" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -919,7 +912,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/RegisterFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="7" selection-start="1879" selection-end="1879" vertical-scroll-proportion="0.14569536" vertical-offset="520" max-vertical-offset="1380">
+        <state line="78" column="54" selection-start="3018" selection-end="3018" vertical-scroll-proportion="0.58278143" vertical-offset="520" max-vertical-offset="1380">
           <folding>
             <element signature="e#1182#1484#0" expanded="true" />
             <element signature="e#1473#1474#0" expanded="true" />
