@@ -32,12 +32,9 @@ public class ManualActivity extends Activity {
                 }
                 String id = uid.getText().toString();
                 String name = MainActivity.findEntry(id, ManualActivity.this);
-                // Return id to main activity to add
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("ID", id);
-                setResult(RESULT_OK, returnIntent);
                 if (!name.equals("")) {
                     MainActivity.toast("Thanks for signing in, " + name + "!", ManualActivity.this);
+                    MainActivity.resultOK(id, ManualActivity.this);
                     finish();
                 } else {
                     Intent newPerson = new Intent(ManualActivity.this, NewPersonActivity.class);
@@ -49,8 +46,11 @@ public class ManualActivity extends Activity {
     }
 
     public void onActivityResult (int requestCode, int resultCode, Intent intent) {
-        if (requestCode == MANUAL) {
+        if (requestCode == MANUAL && resultCode == RESULT_OK) {
+            MainActivity.resultOK(intent.getStringExtra("ID"), ManualActivity.this);
             finish();
         }
     }
+
+
 }

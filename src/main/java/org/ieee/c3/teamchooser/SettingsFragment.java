@@ -1,8 +1,6 @@
 package org.ieee.c3.teamchooser;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -10,32 +8,32 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOError;
 import java.io.IOException;
 import java.util.List;
 
 public class SettingsFragment extends Fragment {
 
-    private TextView textView;
+    private LinearLayout queryResults;
     private MainActivity activity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.people_list, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
         if (rootView == null) {
             MainActivity.toast(null, getActivity());
             Log.d("People Fragment", "Error, null view");
             return null;
         }
         activity = (MainActivity) getActivity();
-        textView = (TextView) rootView.findViewById(R.id.people);
+        queryResults = (LinearLayout) rootView.findViewById(R.id.queryResults);
 
-        Button clearPeople = (Button) rootView.findViewById(R.id.clearcsv);
+        Button clearPeople = (Button) rootView.findViewById(R.id.clearCsv);
         clearPeople.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,7 +52,7 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        Button clearSignedIn = (Button) rootView.findViewById(R.id.clearsignedin);
+        Button clearSignedIn = (Button) rootView.findViewById(R.id.clearSignedIn);
         clearSignedIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,22 +60,36 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        Button viewSignedIn = (Button) rootView.findViewById(R.id.viewsignedin);
+        Button viewSignedIn = (Button) rootView.findViewById(R.id.viewSignedIn);
         viewSignedIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textView.setText(activity.getTodaysIDs().toString());
+                queryResults.removeAllViews();
+                List<String> ids = activity.getTodaysIDs();
+                for (String id : ids) {
+                    queryResults.addView(createRow(id));
+                }
             }
         });
 
-        Button viewFileContents = (Button) rootView.findViewById(R.id.view_file_contents);
+        Button viewFileContents = (Button) rootView.findViewById(R.id.viewFileContents);
         viewFileContents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textView.setText(MainActivity.getContents(activity));
+                queryResults.removeAllViews();
+                String[] contents = MainActivity.getContents(activity).split("\\n");
+                for (String content : contents) {
+                    queryResults.addView(createRow(content));
+                }
             }
         });
 
         return rootView;
+    }
+
+    private TextView createRow(String text) {
+        TextView row = new TextView(activity);
+        row.setText(text);
+        return row;
     }
 }

@@ -9,18 +9,15 @@
     >
 
     <TextView
-        android:id="@+id/section_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="109dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Welcome to C3!"
+        android:text="@string/welcome_message"
         android:id="@+id/textView"
         android:layout_gravity="center_horizontal"
-        android:textSize="40dp"/>
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:textSize="30sp"/>
 
     <ImageView
         android:layout_width="wrap_content"
@@ -43,22 +40,22 @@
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Scan Bruincard"
+                android:text="@string/scan_text"
                 android:id="@+id/scanUID"
-                android:layout_marginTop="12dp"/>
+                android:layout_marginTop="10dp"/>
 
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Enter UID"
+                android:text="@string/manual_uid_text"
                 android:id="@+id/manualUID"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginTop="10dp"/>
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Please sign in / register with one of the buttons below."
+            android:text="@string/sign_in_text"
             android:id="@+id/textView2"
             android:layout_above="@+id/linearLayout"
             android:layout_alignParentLeft="true"/>

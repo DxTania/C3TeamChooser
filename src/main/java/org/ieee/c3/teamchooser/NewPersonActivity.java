@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -43,6 +44,8 @@ public class NewPersonActivity extends Activity {
                     name = nameField.getText().toString();
                     email = emailField.getText().toString();
                     uid = uidField.getText().toString();
+                    // Send id back if needed
+                    MainActivity.resultOK(uid, NewPersonActivity.this);
                 } catch (NullPointerException e) {
                     MainActivity.toast("Please enter name, email, UID, " +
                             "and try again.", NewPersonActivity.this);
@@ -52,7 +55,8 @@ public class NewPersonActivity extends Activity {
                 int expValue = getExpValue(exp.getCheckedRadioButtonId());
                 if (expValue == 0) return;
                 if(writeEntryToFile(uid, name, email, expValue)) {
-                    MainActivity.toast("Thanks for registering!", NewPersonActivity.this);
+                    MainActivity.toast("Thanks for registering, you've now been signed in!",
+                            NewPersonActivity.this);
                 }
                 finish();
             }
@@ -88,7 +92,7 @@ public class NewPersonActivity extends Activity {
      * @param name The student's name
      * @param email The student's email
      * @param expValue The student's experience with coding
-     * @return boolean Succesfull or not
+     * @return boolean Successful or not
      */
     private boolean writeEntryToFile(String uid, String name, String email, int expValue) {
         // Write values to csv file

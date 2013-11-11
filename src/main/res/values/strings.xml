@@ -8,5 +8,15 @@
     <string name="title_section3">Settings</string>
     <string name="submit">Submit</string>
     <string name="make_teams">Make Teams</string>
+    <string name="welcome_message">Welcome to C3!</string>
+    <string name="scan_text">Scan Bruincard</string>
+    <string name="manual_uid_text">Enter UID</string>
+    <string name="sign_in_text">Please sign in / register here:</string>
+    <string name="view_file_contents">View File Contents</string>
+    <string name="view_ids_signed_in">View UIDs Signed In</string>
+    <string name="clear_signed_in">Clear UIDs Signed In</string>
+    <string name="query_results">Query Results:</string>
+    <string name="clear_csv">Clear people.csv</string>
+    <string name="app_settings">Application Settings</string>
 
 </resources>

@@ -3,14 +3,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:padding="@dimen/activity_horizontal_margin">
 
-    <Button
-        android:layout_width="fill_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="View People Signed In"
-        android:id="@+id/viewPeople"
-        android:layout_gravity="center_horizontal"/>
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Just Click It!"
+        android:id="@+id/textView"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="30dp"
+        android:textStyle="bold"/>
 
     <Button
         android:layout_width="fill_parent"

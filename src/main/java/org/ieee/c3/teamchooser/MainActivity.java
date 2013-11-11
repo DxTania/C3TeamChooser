@@ -1,15 +1,10 @@
 package org.ieee.c3.teamchooser;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -19,6 +14,13 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.Toast;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 
@@ -155,7 +157,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     }
 
     public static void toast(String text, Context context) {
-        if (text == null || text == "") {
+        if (text == null || text.equals("")) {
             text = "Something went wrong! :(";
         }
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
@@ -173,7 +175,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      */
     public static String findEntry(String id, Context context) {
         FileInputStream fos;
-        Log.d("DBG Main Activity", "Searching...");
         try {
             fos = context.openFileInput("people.csv");
         } catch (FileNotFoundException e) {
@@ -199,7 +200,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                 }
             }
             // If we found the id, find the name of the person
-            if (curId != "") {
+            if (!curId.equals("")) {
                 while((content = fos.read()) != -1) {
                     char c = (char) content;
                     if (c == ',') {
@@ -234,6 +235,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             MainActivity.toast(null, context);
             return "";
         }
+    }
+
+    public static void resultOK(String id, Activity activity) {
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("ID", id);
+        activity.setResult(RESULT_OK, returnIntent);
     }
 
 }
