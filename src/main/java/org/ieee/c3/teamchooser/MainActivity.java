@@ -10,22 +10,14 @@ import java.util.Locale;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
@@ -133,7 +125,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                     fragment = new MakeTeamsFragment();
                     break;
                 default:
-                    fragment = new PeopleFragment();
+                    fragment = new SettingsFragment();
             }
             //Bundle args = new Bundle();
             //args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
@@ -163,12 +155,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     }
 
     public static void toast(String text, Context context) {
+        if (text == null || text == "") {
+            text = "Something went wrong! :(";
+        }
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
-    }
-
-    public void addId(String id) {
-        toast("Adding id " + id, this);
-        todaysIDs.add(id);
     }
 
     public List<String> getTodaysIDs() {
@@ -183,12 +173,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      */
     public static String findEntry(String id, Context context) {
         FileInputStream fos;
-        Log.d("Main Activity", "Searching...");
+        Log.d("DBG Main Activity", "Searching...");
         try {
             fos = context.openFileInput("people.csv");
         } catch (FileNotFoundException e) {
-            Log.d("Main Activity", "File not found!");
-            MainActivity.toast("Something went wrong! :(", context);
+            Log.d("DBG Main Activity", "File not found!");
+            MainActivity.toast(null, context);
             return null;
         }
         // Look for an entry with this id
@@ -221,10 +211,29 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             }
             fos.close();
         } catch(IOException e) {
-            Log.d("Main Activity", "IO Exception");
+            Log.d("DBG Main Activity", "IO Exception");
             MainActivity.toast("Something went wrong! :(", context);
         }
         return name;
+    }
+
+    public static String getContents(Context context) {
+        String file = "";
+        int content;
+        try {
+            FileInputStream fos = context.openFileInput("people.csv");
+            while((content = fos.read()) != -1) {
+                file += (char) content;
+            }
+            fos.close();
+            return file;
+        } catch (FileNotFoundException e) {
+            return "";
+        } catch (IOException e) {
+            Log.d("DBG Make Teams Fragment:", "IO Exception");
+            MainActivity.toast(null, context);
+            return "";
+        }
     }
 
 }

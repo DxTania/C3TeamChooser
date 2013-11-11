@@ -38,9 +38,17 @@ public class NewPersonActivity extends Activity {
             @Override
             public void onClick(View view) {
                 // Get form values
-                String name = nameField.getText().toString();
-                String email = emailField.getText().toString();
-                String uid = uidField.getText().toString();
+                String name, email, uid;
+                try {
+                    name = nameField.getText().toString();
+                    email = emailField.getText().toString();
+                    uid = uidField.getText().toString();
+                } catch (NullPointerException e) {
+                    MainActivity.toast("Please enter name, email, UID, " +
+                            "and try again.", NewPersonActivity.this);
+                    return;
+                }
+
                 int expValue = getExpValue(exp.getCheckedRadioButtonId());
                 if (expValue == 0) return;
                 if(writeEntryToFile(uid, name, email, expValue)) {
@@ -69,7 +77,7 @@ public class NewPersonActivity extends Activity {
             case R.id.eFive:
                 return 5;
             default:
-                MainActivity.toast("Something went wrong! :(", this);
+                MainActivity.toast(null, this);
                 return 0;
         }
     }
@@ -84,25 +92,21 @@ public class NewPersonActivity extends Activity {
      */
     private boolean writeEntryToFile(String uid, String name, String email, int expValue) {
         // Write values to csv file
-        FileOutputStream fos;
         try {
-            fos = openFileOutput("people.csv", Context.MODE_APPEND);
-        } catch (FileNotFoundException e) {
-            Log.d("NewPerson Activity", "File not found");
-            MainActivity.toast("Something went wrong! :(", NewPersonActivity.this);
-            return false;
-        }
-        String csvEntry = uid + "," + name + ","
-                + email + "," + String.valueOf(expValue) + "\n\n";
-        try {
+            FileOutputStream fos = openFileOutput("people.csv", Context.MODE_APPEND);
+            String csvEntry = uid + "," + name + ","
+                    + email + "," + String.valueOf(expValue) + "\n";
             fos.write(csvEntry.getBytes());
             fos.close();
-            Log.d("NewPerson Activity", "Wrote to file");
+            return true;
+        } catch (FileNotFoundException e) {
+            Log.d("DBG New Person Activity", "File not found");
+            MainActivity.toast(null, NewPersonActivity.this);
+            return false;
         } catch (IOException e) {
-            Log.d("NewPerson Activity", "IO Exception!");
-            MainActivity.toast("Something went wrong! :(", NewPersonActivity.this);
+            Log.d("DBG New Person Activity", "IO Exception!");
+            MainActivity.toast(null, NewPersonActivity.this);
             return false;
         }
-        return true;
     }
 }

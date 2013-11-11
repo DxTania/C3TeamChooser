@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,36 +26,15 @@ public class MakeTeamsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_teams, container, false);
+        if (rootView == null) {
+            Log.d("DBG Make Teams Fragment:", "View was null");
+            MainActivity.toast(null, getActivity());
+            return null;
+        }
         makeTeams = (Button) rootView.findViewById(R.id.makeTeams);
-        fileContents = (TextView) rootView.findViewById(R.id.fileContents);
-        fileContents.setText(getContents());
-
-        makeTeams.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fileContents.setText(getContents());
-            }
-        });
 
         return rootView;
     }
 
-    private String getContents() {
-        String file = "";
-        int content;
-        FileInputStream fos;
-        try {
-            fos = getActivity().openFileInput("people.csv");
-        } catch (FileNotFoundException e) {
-            return "";
-        }
-        try {
-            while((content = fos.read()) != -1) {
-                file += (char) content;
-            }
-        } catch (IOException e) {
 
-        }
-        return file;
-    }
 }

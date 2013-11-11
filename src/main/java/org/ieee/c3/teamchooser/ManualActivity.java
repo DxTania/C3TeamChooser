@@ -1,20 +1,11 @@
 package org.ieee.c3.teamchooser;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioGroup;
-import android.widget.Toast;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 public class ManualActivity extends Activity {
 
@@ -28,7 +19,7 @@ public class ManualActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_main_dummy);
+        setContentView(R.layout.manual_uid_entry);
         uid = (EditText) findViewById(R.id.manualId);
         submit = (Button) findViewById(R.id.submitManualId);
 

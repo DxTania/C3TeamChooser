@@ -15,10 +15,8 @@ import java.io.*;
 
 public class RegisterFragment extends Fragment {
     public Button scanBarcode, enterUid;
-    private static final int MANUAL = 1;
-
-    // global static variables
     private static final int BARCODE = 0;
+    private static final int MANUAL = 1;
 
     public RegisterFragment() { }
 
@@ -26,13 +24,19 @@ public class RegisterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_register, container, false);
+        if (rootView == null) {
+            MainActivity.toast("Something went wrong! :(", getActivity());
+            Log.d("Register Fragment", "Error, null view");
+            return null;
+        }
+
         scanBarcode = (Button) rootView.findViewById(R.id.scanUID);
         enterUid = (Button) rootView.findViewById(R.id.manualUID);
 
         scanBarcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // start barcode activity
+                // Start barcode activity
                 Intent intent = new Intent("com.google.zxing.client.android.SCAN");
                 startActivityForResult(intent, BARCODE);
             }
@@ -41,7 +45,7 @@ public class RegisterFragment extends Fragment {
         enterUid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // pop up ability to enter UID
+                // Start activity to manually enter UID
                 Intent intent = new Intent(getActivity(), ManualActivity.class);
                 startActivityForResult(intent, MANUAL);
             }
@@ -51,20 +55,27 @@ public class RegisterFragment extends Fragment {
     }
 
     /**
-     * onActivityResult handles the intent which was launched by
-     * reqBarcode
+     *  This method handles intents that were started for a result, such
+     *  as the barcode or manual UID entry intents.
      *
-     * /@see reqBarcode()
+     * @param requestCode The code which indicates which activity finished
+     * @param resultCode The code which indicates the success or failure of the activity
+     * @param intent The intent which was used to start the activity
      */
     public void onActivityResult (int requestCode, int resultCode, Intent intent) {
         if (requestCode == BARCODE) {
             if (resultCode == Activity.RESULT_OK) {
-                String contents = intent.getStringExtra("SCAN_RESULT");
-                String id = contents.substring(0, contents.length() - 1);
                 MainActivity activity = (MainActivity) getActivity();
-                activity.addId(id);
-                String name = activity.findEntry(id, activity);
-                if (!name.equals("")) {
+                String contents = intent.getStringExtra("SCAN_RESULT");
+                if (contents == null) {
+                    MainActivity.toast(null, getActivity());
+                    return;
+                }
+                String id = contents.substring(0, contents.length() - 1);
+                String name = MainActivity.findEntry(id, activity);
+
+                activity.getTodaysIDs().add(id);
+                if (!name.equals("") && name != null) {
                     MainActivity.toast("Thanks for signing in, " + name + "! :)", getActivity());
                 } else {
                     Intent newPerson = new Intent(getActivity(), NewPersonActivity.class);
@@ -73,13 +84,16 @@ public class RegisterFragment extends Fragment {
                 }
             }
             else {
-                MainActivity.toast("Something went wrong! :(", getActivity());
+                MainActivity.toast(null, getActivity());
             }
         }
         else if (requestCode == MANUAL) {
             if (resultCode == Activity.RESULT_OK) {
                 MainActivity activity = (MainActivity) getActivity();
-                activity.addId(intent.getStringExtra("ID"));
+                String id = intent.getStringExtra("ID");
+                if (!activity.getTodaysIDs().contains(id)) {
+                    activity.getTodaysIDs().add(intent.getStringExtra("ID"));
+                }
             }
         }
     }

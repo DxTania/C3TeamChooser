@@ -15,14 +15,13 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Make Teams"
+        android:text="@string/make_teams"
         android:id="@+id/makeTeams"
         android:layout_gravity="center_horizontal"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
         android:id="@+id/fileContents"
         android:layout_gravity="center_horizontal"/>
 </LinearLayout>
