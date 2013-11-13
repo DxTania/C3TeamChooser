@@ -50,6 +50,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();
+        if (actionBar == null) {
+            Log.d("DBG Main Activity", "Action bar was null");
+            return;
+        }
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         // Create the adapter that will return a fragment for each of the three
@@ -213,7 +217,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             fos.close();
         } catch(IOException e) {
             Log.d("DBG Main Activity", "IO Exception");
-            MainActivity.toast("Something went wrong! :(", context);
+            MainActivity.toast(null, context);
         }
         return name;
     }
