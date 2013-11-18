@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -14,6 +15,10 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.Toast;
+import org.ieee.c3.teamchooser.components.Person;
+import org.ieee.c3.teamchooser.fragments.MakeTeamsFragment;
+import org.ieee.c3.teamchooser.fragments.RegisterFragment;
+import org.ieee.c3.teamchooser.fragments.SettingsFragment;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -39,14 +44,32 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      */
     ViewPager mViewPager;
 
-    public List<String> todaysIDs;
+    public List<Person> todaysPeople;
+
+    // Make enumeration and use this for person creation
+    public static final int UID = 0;
+    public static final int NAME = 1;
+    public static final int EMAIL = 2;
+    public static final int EXP = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        todaysIDs = new ArrayList<String>();
+        todaysPeople = new ArrayList<Person>();
+
+        // Restore people and ids signed in from application destruction.
+        SharedPreferences prefs = getPreferences(MODE_PRIVATE);
+        String restoredText = prefs.getString("peopleList", null);
+        if (restoredText != null) {
+            Log.d("DBG Main Activity", "Restoring people" + restoredText);
+            String people[] = restoredText.split(";");
+            for (String person : people) {
+                Person p = new Person(person);
+                todaysPeople.add(p);
+            }
+        }
 
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();
@@ -160,6 +183,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         }
     }
 
+    /**
+     * Toasts the given text under the given context, or an error if the text is null
+     *
+     * @param text    The text to toast, null for an error message
+     * @param context The context to use for the toast (yum)
+     */
     public static void toast(String text, Context context) {
         if (text == null || text.equals("")) {
             text = "Something went wrong! :(";
@@ -167,17 +196,17 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
     }
 
-    public List<String> getTodaysIDs() {
-        return todaysIDs;
+    public List<Person> getTodaysPeople() {
+        return todaysPeople;
     }
 
     /**
      * This function searches people.csv for a specific id
      * @param id The id to search for
      * @param context The context to use for file opening
-     * @return String name The name if found, empty string otherwise
+     * @return Person The person if found, null otherwise
      */
-    public static String findEntry(String id, Context context) {
+    public static Person findEntry(String id, Context context) {
         FileInputStream fos;
         try {
             fos = context.openFileInput("people.csv");
@@ -188,29 +217,43 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         }
         // Look for an entry with this id
         int content;
-        String curId = "";
-        String name = "";
+        String person[] = {"", "", "", ""};
         try {
             while((content = fos.read()) != -1) {
                 char c = (char) content;
                 if (c == ',' || c == '\n') {
-                    if (curId.equals(id)) {
+                    if (person[0].equals(id)) {
                         break;
                     } else {
-                        curId = "";
+                        person[0] = "";
                     }
                 } else {
-                    curId += c;
+                    person[0] += c;
                 }
             }
+            Log.d("DBG Main Activity", "Found the id");
             // If we found the id, find the name of the person
-            if (!curId.equals("")) {
+            if (!person[0].equals("")) {
+                int count = 1; // We found one field, need 3 more
                 while((content = fos.read()) != -1) {
                     char c = (char) content;
                     if (c == ',') {
+                        count++;
+                        if (count == 4) break;
+                    } else if (c == '\n') {
                         break;
                     } else {
-                        name += c;
+                        switch (count) {
+                            case 1: // name
+                                person[1] += c;
+                                break;
+                            case 2: // email
+                                person[2] += c;
+                                break;
+                            case 3: // exp
+                                person[3] += c;
+                                break;
+                        }
                     }
                 }
             }
@@ -218,10 +261,19 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         } catch(IOException e) {
             Log.d("DBG Main Activity", "IO Exception");
             MainActivity.toast(null, context);
+            return null;
         }
-        return name;
+        if (person[0].equals("")) return null;
+        Log.d("DBG Main Activity", "Returning a person");
+        return new Person(person);
     }
 
+    /**
+     * Gets the contents of people.csv
+     *
+     * @param context The context to use for file opening
+     * @return The file contents as a string
+     */
     public static String getContents(Context context) {
         String file = "";
         int content;
@@ -241,10 +293,57 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         }
     }
 
-    public static void resultOK(String id, Activity activity) {
+    /**
+     * Creates a return intent for the given activity which contains
+     * a person string for the requested result
+     *
+     * @param p        The person string which represents the signed in or new person
+     * @param activity The activity which is about to finish
+     */
+    public static void resultOK(String p, Activity activity) {
         Intent returnIntent = new Intent();
-        returnIntent.putExtra("ID", id);
+        returnIntent.putExtra("person", p);
         activity.setResult(RESULT_OK, returnIntent);
+    }
+
+    /**
+     * Signs person given in so they may be team matched
+     *
+     * @param p The person to sign in
+     */
+    public void signIn(Person p) {
+        todaysPeople.add(p);
+        SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+        editor.putString("peopleList", getPeopleString());
+        editor.commit();
+    }
+
+    /**
+     * Returns true if a person with the given UID is signed in
+     *
+     * @param uid The UID to look for
+     * @return Whether or not the UID is signed in
+     */
+    public boolean isSignedIn(String uid) {
+        for (Person p : todaysPeople) {
+            if (p.getUid().equals(uid)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Creates a string delimited by ; of people strings
+     *
+     * @return A string representing all people signed in
+     */
+    private String getPeopleString() {
+        String result = "";
+        for (Person p : todaysPeople) {
+            result += p.toString() + ";";
+        }
+        return result;
     }
 
 }

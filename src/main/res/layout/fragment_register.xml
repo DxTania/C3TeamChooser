@@ -37,12 +37,14 @@
             android:layout_alignParentRight="true"
             android:orientation="vertical"
             android:id="@+id/linearLayout">
+
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/scan_text"
                 android:id="@+id/scanUID"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                />
 
             <Button
                 android:layout_width="fill_parent"

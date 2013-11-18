@@ -1,22 +1,25 @@
-package org.ieee.c3.teamchooser;
+package org.ieee.c3.teamchooser.fragments;
 
-import android.content.Context;
-import android.util.Log;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
-import java.io.*;
+import org.ieee.c3.teamchooser.MainActivity;
+import org.ieee.c3.teamchooser.ManualActivity;
+import org.ieee.c3.teamchooser.NewPersonActivity;
+import org.ieee.c3.teamchooser.R;
+import org.ieee.c3.teamchooser.components.Person;
 
 public class RegisterFragment extends Fragment {
     public Button scanBarcode, enterUid;
     private static final int BARCODE = 0;
     private static final int MANUAL = 1;
+    private static final int SCANNED = 2;
 
     public RegisterFragment() { }
 
@@ -72,27 +75,32 @@ public class RegisterFragment extends Fragment {
                     return;
                 }
                 String id = contents.substring(0, contents.length() - 1);
-                String name = MainActivity.findEntry(id, activity);
-
-                activity.getTodaysIDs().add(id);
-                if (!name.equals("") && name != null) {
-                    MainActivity.toast("Thanks for signing in, " + name + "! :)", getActivity());
+                Person p = MainActivity.findEntry(id, activity);
+                if (p != null) {
+                    if (!activity.isSignedIn(id)) {
+                        activity.signIn(p);
+                    }
+                    MainActivity.toast("Thanks for signing in, " + p.getName() + "! :D", getActivity());
                 } else {
                     Intent newPerson = new Intent(getActivity(), NewPersonActivity.class);
                     newPerson.putExtra("ID", id);
-                    startActivity(newPerson);
+                    startActivityForResult(newPerson, SCANNED);
                 }
             }
-            else {
-                MainActivity.toast(null, getActivity());
-            }
-        }
-        else if (requestCode == MANUAL) {
+        } else if (requestCode == MANUAL) {
             if (resultCode == Activity.RESULT_OK) {
                 MainActivity activity = (MainActivity) getActivity();
-                String id = intent.getStringExtra("ID");
-                if (!activity.getTodaysIDs().contains(id)) {
-                    activity.getTodaysIDs().add(intent.getStringExtra("ID"));
+                Person p = new Person(intent.getStringExtra("person"));
+                if (!activity.isSignedIn(p.getUid())) {
+                    activity.signIn(p);
+                }
+            }
+        } else if (requestCode == SCANNED) {
+            if (resultCode == Activity.RESULT_OK) {
+                MainActivity activity = (MainActivity) getActivity();
+                Person p = new Person(intent.getStringExtra("person"));
+                if (!activity.isSignedIn(p.getUid())) {
+                    activity.signIn(p);
                 }
             }
         }

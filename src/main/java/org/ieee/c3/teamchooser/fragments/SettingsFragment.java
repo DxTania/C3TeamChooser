@@ -1,4 +1,4 @@
-package org.ieee.c3.teamchooser;
+package org.ieee.c3.teamchooser.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import org.ieee.c3.teamchooser.MainActivity;
+import org.ieee.c3.teamchooser.R;
+import org.ieee.c3.teamchooser.components.Person;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -56,7 +59,7 @@ public class SettingsFragment extends Fragment {
         clearSignedIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                activity.getTodaysIDs().clear();
+                activity.getTodaysPeople().clear();
             }
         });
 
@@ -65,9 +68,9 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 queryResults.removeAllViews();
-                List<String> ids = activity.getTodaysIDs();
-                for (String id : ids) {
-                    queryResults.addView(createRow(id));
+                List<Person> people = activity.getTodaysPeople();
+                for (Person p : people) {
+                    queryResults.addView(createRow(p.toString()));
                 }
             }
         });

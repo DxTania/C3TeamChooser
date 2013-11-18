@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import org.ieee.c3.teamchooser.components.Person;
 
 public class ManualActivity extends Activity {
 
     private EditText uid;
-    private Button submit;
+    private EditText pref1;
+    private EditText pref2;
 
     private static final int MANUAL = 3;
 
@@ -21,7 +23,9 @@ public class ManualActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manual_uid_entry);
         uid = (EditText) findViewById(R.id.manualId);
-        submit = (Button) findViewById(R.id.submitManualId);
+        pref1 = (EditText) findViewById(R.id.pref1);
+        pref2 = (EditText) findViewById(R.id.pref2);
+        Button submit = (Button) findViewById(R.id.submitManualId);
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,14 +35,24 @@ public class ManualActivity extends Activity {
                     return;
                 }
                 String id = uid.getText().toString();
-                String name = MainActivity.findEntry(id, ManualActivity.this);
-                if (!name.equals("")) {
-                    MainActivity.toast("Thanks for signing in, " + name + "!", ManualActivity.this);
-                    MainActivity.resultOK(id, ManualActivity.this);
+                Person p = MainActivity.findEntry(id, ManualActivity.this);
+                String p1 = pref1.getText().toString();
+                String p2 = pref2.getText().toString();
+                if (p != null) {
+                    MainActivity.toast("Thanks for signing in, " + p.getName() + "!", ManualActivity.this);
+                    if (p1 != null && !p1.equals("")) {
+                        p.addPreference(p1);
+                    }
+                    if (p2 != null && !p2.equals("")) {
+                        p.addPreference(p2);
+                    }
+                    MainActivity.resultOK(p.toString(), ManualActivity.this);
                     finish();
                 } else {
                     Intent newPerson = new Intent(ManualActivity.this, NewPersonActivity.class);
                     newPerson.putExtra("ID", id);
+                    newPerson.putExtra("pref1", p1);
+                    newPerson.putExtra("pref2", p2);
                     startActivityForResult(newPerson, MANUAL);
                 }
             }
@@ -47,10 +61,9 @@ public class ManualActivity extends Activity {
 
     public void onActivityResult (int requestCode, int resultCode, Intent intent) {
         if (requestCode == MANUAL && resultCode == RESULT_OK) {
-            MainActivity.resultOK(intent.getStringExtra("ID"), ManualActivity.this);
+            MainActivity.resultOK(intent.getStringExtra("person"), ManualActivity.this);
             finish();
         }
     }
-
 
 }

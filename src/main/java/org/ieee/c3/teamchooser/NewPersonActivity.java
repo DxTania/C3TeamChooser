@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import org.ieee.c3.teamchooser.components.Person;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -39,25 +40,41 @@ public class NewPersonActivity extends Activity {
             @Override
             public void onClick(View view) {
                 // Get form values
-                String name, email, uid;
+                String name, email, uid, pref1, pref2;
+                String person[] = new String[4];
                 try {
-                    name = nameField.getText().toString();
-                    email = emailField.getText().toString();
-                    uid = uidField.getText().toString();
-                    // Send id back if needed
-                    MainActivity.resultOK(uid, NewPersonActivity.this);
+                    person[0] = uidField.getText().toString();
+                    person[1] = nameField.getText().toString();
+                    person[2] = emailField.getText().toString();
+
+                    pref1 = getIntent().getStringExtra("pref1");
+                    pref2 = getIntent().getStringExtra("pref2");
                 } catch (NullPointerException e) {
                     MainActivity.toast("Please enter name, email, UID, " +
                             "and try again.", NewPersonActivity.this);
                     return;
                 }
+                person[3] = getExpValue(exp.getCheckedRadioButtonId());
+                if (person[3].equals("0")) {
+                    MainActivity.toast("Please enter your experience", NewPersonActivity.this);
+                    return;
+                }
 
-                int expValue = getExpValue(exp.getCheckedRadioButtonId());
-                if (expValue == 0) return;
-                if(writeEntryToFile(uid, name, email, expValue)) {
+                if (writeEntryToFile(person)) {
                     MainActivity.toast("Thanks for registering, you've now been signed in!",
                             NewPersonActivity.this);
                 }
+
+                // Send person back with preferences
+                Person p = new Person(person);
+                if (pref1 != null && !pref1.equals("")) {
+                    p.addPreference(pref1);
+                }
+                if (pref2 != null && !pref2.equals("")) {
+                    p.addPreference(pref2);
+                }
+
+                MainActivity.resultOK(p.toString(), NewPersonActivity.this);
                 finish();
             }
         });
@@ -68,38 +85,35 @@ public class NewPersonActivity extends Activity {
      * @param id The R.id.x value of the radio button
      * @return int The value of the radio button
      */
-    private int getExpValue(int id) {
+    private String getExpValue(int id) {
         switch(id) {
             case R.id.eOne:
-                return 1;
+                return "1";
             case R.id.eTwo:
-                return 2;
+                return "2";
             case R.id.eThree:
-                return 3;
+                return "3";
             case R.id.eFour:
-                return 4;
+                return "4";
             case R.id.eFive:
-                return 5;
+                return "5";
             default:
                 MainActivity.toast(null, this);
-                return 0;
+                return "0";
         }
     }
 
     /**
      * Writes a csv entry to the end of people.csv
-     * @param uid The student's Bruincard UID
-     * @param name The student's name
-     * @param email The student's email
-     * @param expValue The student's experience with coding
+     * @param person The string array representing the person
      * @return boolean Successful or not
      */
-    private boolean writeEntryToFile(String uid, String name, String email, int expValue) {
+    private boolean writeEntryToFile(String person[]) {
         // Write values to csv file
         try {
             FileOutputStream fos = openFileOutput("people.csv", Context.MODE_APPEND);
-            String csvEntry = uid + "," + name + ","
-                    + email + "," + String.valueOf(expValue) + "\n";
+            String csvEntry = person[0] + "," + person[1] + ","
+                    + person[2] + "," + person[3] + "\n";
             fos.write(csvEntry.getBytes());
             fos.close();
             return true;

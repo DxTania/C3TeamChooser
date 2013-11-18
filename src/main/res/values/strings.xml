@@ -18,5 +18,12 @@
     <string name="query_results">Query Results:</string>
     <string name="clear_csv">Clear people.csv</string>
     <string name="app_settings">Application Settings</string>
+    <string name="person1">Person 1 Full Name</string>
+    <string name="person2">Person 2 Full Name</string>
+    <string name="preferences">Team Preferences:</string>
+    <string name="preference1">Person 1 Preference Full Name</string>
+    <string name="preference2">Person 2 Preference Full Name</string>
+    <string name="unsure">If you aren\'t sure, choose your year.</string>
+    <string name="rate">Rate your Experience</string>
 
 </resources>
