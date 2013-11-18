@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by rawrtan on 11/14/13.
+ * The class that represents a team of 3-4 people
  */
 public class Team {
     private List<Person> people;
-    private int avgExp;
+    private double avgExp;
+    private double totalExp;
 
     public Team() {
         people = new ArrayList<Person>();
@@ -17,14 +18,24 @@ public class Team {
 
     public void addPerson(Person p) {
         people.add(p);
-        avgExp = (avgExp + Integer.valueOf(p.getExp())) / people.size();
+        totalExp += p.getExp();
+        avgExp = totalExp / people.size();
     }
 
     public List<Person> getPeople() {
         return people;
     }
 
-    public int getAvgExp() {
+    public double getAvgExp() {
         return avgExp;
+    }
+
+    @Override
+    public String toString() {
+        String text = "Avg Exp: " + avgExp + " | ";
+        for (Person p : people) {
+            text += p.getName() + ":" + String.valueOf(p.getExp()) + "|";
+        }
+        return text;
     }
 }

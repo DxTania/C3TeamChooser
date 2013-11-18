@@ -63,7 +63,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         SharedPreferences prefs = getPreferences(MODE_PRIVATE);
         String restoredText = prefs.getString("peopleList", null);
         if (restoredText != null) {
-            Log.d("DBG Main Activity", "Restoring people" + restoredText);
             String people[] = restoredText.split(";");
             for (String person : people) {
                 Person p = new Person(person);
@@ -219,6 +218,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         int content;
         String person[] = {"", "", "", ""};
         try {
+            boolean ignore = false;
             while((content = fos.read()) != -1) {
                 char c = (char) content;
                 if (c == ',' || c == '\n') {
@@ -227,7 +227,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                     } else {
                         person[0] = "";
                     }
-                } else {
+                    if (c == ',') {
+                        ignore = true;
+                    } else {
+                        ignore = false;
+                    }
+                } else if (!ignore) {
                     person[0] += c;
                 }
             }

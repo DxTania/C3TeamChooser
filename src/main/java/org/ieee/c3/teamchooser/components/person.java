@@ -55,8 +55,8 @@ public class Person {
         return uid + "," + name + "," + email + "," + exp + "," + prefs;
     }
 
-    public String getExp() {
-        return exp;
+    public double getExp() {
+        return Double.valueOf(exp);
     }
 
     public String getUid() {

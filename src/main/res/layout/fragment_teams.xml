@@ -30,4 +30,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/fileContents"
         android:layout_gravity="center_horizontal"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/teamText">
+    </LinearLayout>
 </LinearLayout>
