@@ -3,6 +3,7 @@ package org.ieee.c3.teamchooser;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -43,22 +44,24 @@ public class NewPersonActivity extends Activity {
                 // Get form values
                 String pref1, pref2;
                 String person[] = new String[4];
-                try {
-                    person[Person.UID] = uidField.getText().toString();
-                    person[Person.NAME] = nameField.getText().toString();
-                    person[Person.EMAIL] = emailField.getText().toString();
-                    pref1 = getIntent().getStringExtra("pref1");
-                    pref2 = getIntent().getStringExtra("pref2");
-                } catch (NullPointerException e) {
+                Editable uid = uidField.getText();
+                Editable name = nameField.getText();
+                Editable email = emailField.getText();
+                if (uid == null || name == null || email == null) {
                     MainActivity.toast("Please enter name, email, UID, " +
                             "and try again.", NewPersonActivity.this);
                     return;
                 }
+                person[Person.UID] = uid.toString();
+                person[Person.NAME] = name.toString();
+                person[Person.EMAIL] = email.toString();
                 person[Person.EXP] = getExpValue(exp.getCheckedRadioButtonId());
                 if (person[Person.EXP].equals("0")) {
                     MainActivity.toast("Please enter your experience", NewPersonActivity.this);
                     return;
                 }
+                pref1 = getIntent().getStringExtra("pref1");
+                pref2 = getIntent().getStringExtra("pref2");
 
                 // Write form values to file
                 if (writeEntryToFile(person)) {

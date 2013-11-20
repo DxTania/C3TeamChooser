@@ -7,7 +7,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import org.ieee.c3.teamchooser.MainActivity;
 import org.ieee.c3.teamchooser.R;
 import org.ieee.c3.teamchooser.components.Person;
@@ -153,7 +156,11 @@ public class MakeTeamsFragment extends Fragment {
                 // Sort the teams by experience
                 Collections.sort(teams, new Comparator<Team>() {
                     public int compare(Team t1, Team t2) {
-                        return (int) (t1.getAvgExp() - t2.getAvgExp());
+                        if (t1.getAvgExp() < t2.getAvgExp()) {
+                            return -1;
+                        } else {
+                            return 1;
+                        }
                     }
                 });
                 // There will be at most 2 extra people to put on teams
@@ -164,44 +171,30 @@ public class MakeTeamsFragment extends Fragment {
                     // Earliest person has smaller exp, earlier team has smaller exp
                     teams.get(teams.size() - 2).addPerson(people.get(0));
                     teams.get(teams.size() - 1).addPerson(people.get(1));
-                    people.remove(0);
-                    people.remove(1);
+                    people.clear();
                 }
             }
         }
 
         // Display team results in a table
-        TableLayout table = new TableLayout(getActivity());
-        TableRow.LayoutParams llp = new TableRow.LayoutParams(
-                TableLayout.LayoutParams.WRAP_CONTENT,
-                TableLayout.LayoutParams.WRAP_CONTENT);
-        llp.setMargins(0, 0, 6, 0);
-        List<TableRow> rows = new ArrayList<TableRow>();
+        teamView.removeAllViews();
+        LinearLayout table = new LinearLayout(getActivity());
+        table.setOrientation(LinearLayout.VERTICAL);
         for (int j = 0; j < teams.size(); j++) {
-            int row = j / 2; // 0 indexed row, 2 teams per row
-            TableRow tr;
-            if (row < rows.size()) {
-                tr = rows.get(row);
-            } else {
-                tr = new TableRow(getActivity());
-                tr.setPadding(0, 0, 0, 2);
-                rows.add(tr);
-                table.addView(tr);
-            }
-
-            LinearLayout cell = new LinearLayout(getActivity());
-            cell.setLayoutParams(llp);
+            LinearLayout tr = new LinearLayout(getActivity());
+            tr.setOrientation(LinearLayout.HORIZONTAL);
 
             TextView peopleList = new TextView(getActivity());
             String peopleString = "", expString = "";
             List<Person> teamMembers = teams.get(j).getPeople();
             for (Person teamMember : teamMembers) {
-                peopleString += teamMember.getAbbrName() + "\n";
+                peopleString += teamMember.getName() + "\n";
                 expString += String.format("%.0f", teamMember.getExp()) + ",";
             }
             expString = expString.substring(0, expString.length() - 1);
             peopleList.setText(peopleString);
 
+            // Team #X ~AvgExp Exp,Exp,Exp
             TextView teamNum = new TextView(getActivity());
             teamNum.setPadding(0, 0, 15, 0);
             teamNum.setTypeface(null, Typeface.BOLD);
@@ -209,9 +202,9 @@ public class MakeTeamsFragment extends Fragment {
                     String.format("%.2f", teams.get(j).getAvgExp()) +
                     "\n" + expString);
 
-            cell.addView(teamNum);
-            cell.addView(peopleList);
-            tr.addView(cell);
+            tr.addView(teamNum);
+            tr.addView(peopleList);
+            table.addView(tr);
         }
         teamView.addView(table);
 
