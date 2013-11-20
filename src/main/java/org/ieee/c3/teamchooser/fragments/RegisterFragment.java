@@ -66,7 +66,7 @@ public class RegisterFragment extends Fragment {
      *
      * @param requestCode The code which indicates which activity finished
      * @param resultCode  The code which indicates the success or failure of the activity
-     * @param intent      The intent which was used to start the activity
+     * @param intent      The intent returned from the activity
      */
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == BARCODE) {

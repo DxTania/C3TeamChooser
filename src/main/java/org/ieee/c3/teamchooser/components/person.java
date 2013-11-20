@@ -76,6 +76,11 @@ public class Person {
         return name;
     }
 
+    /**
+     * Used to display names in teams
+     *
+     * @return Shortened name, only last initial
+     */
     public String getAbbrName() {
         int lastName = 1;
         // Index of last name initial

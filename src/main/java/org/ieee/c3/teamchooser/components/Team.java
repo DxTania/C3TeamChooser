@@ -11,11 +11,19 @@ public class Team {
     private double avgExp;
     private double totalExp;
 
+    /**
+     * Creates a team with no people
+     */
     public Team() {
         people = new ArrayList<Person>();
         avgExp = 0;
     }
 
+    /**
+     * Adds a person to the team and updates exp
+     *
+     * @param p The person to add
+     */
     public void addPerson(Person p) {
         people.add(p);
         totalExp += p.getExp();

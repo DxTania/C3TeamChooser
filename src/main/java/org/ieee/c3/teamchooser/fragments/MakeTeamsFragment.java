@@ -43,6 +43,24 @@ public class MakeTeamsFragment extends Fragment {
         return rootView;
     }
 
+    /**
+     * Uses the people that are currently signed in in order to create teams
+     * <p/>
+     * This algorithm first creates teams for people with preferences. Enough
+     * teams are created to accomodate those preferences. We then loop through
+     * the teams that were just created in order to finish of those teams. We
+     * do this by introducing an exp tolerance difference delta, and if we do
+     * not find a person with exp within range, we increase delta until we
+     * can finish the teams (or no people are left to put on teams) People
+     * are then sorted by exp, and teams of 3 are made from this sorted list.
+     * There will be at most 2 extra people, so a max of 2 four-people teams.
+     * These extra people will appear at the end of the people list, and therefore
+     * have the highest experience. Because of this, we place the highest
+     * experience person on the highest experienced team, and the lower
+     * experience person the second to highest experienced team.
+     * <p/>
+     * TODO: Perhaps change this so bigger teams have more freshman?
+     */
     private void createTeams() {
         MainActivity activity = (MainActivity) getActivity();
         List<Person> people = new ArrayList<Person>(activity.getTodaysPeople());
@@ -100,11 +118,13 @@ public class MakeTeamsFragment extends Fragment {
             }
         });
 
-        // Add people to current preferenced teams until those teams are finished
+        // Add people to current preferenced teams based on exp
         for (Team t : teams) {
+            // Exp difference tolerance
             double delta = 0;
             if (t.getPeople().size() < 3) {
                 while (t.getPeople().size() < 3 && people.size() > 0) {
+                    // Keep increasing delta until we can finish teams
                     i = people.iterator();
                     while (i.hasNext() && t.getPeople().size() < 3) {
                         Person p = i.next();
@@ -118,7 +138,7 @@ public class MakeTeamsFragment extends Fragment {
             }
         }
 
-        // Create teams of 3 from the sorted list
+        // Create teams of 3 from the sorted list, 4 if there are extras
         while (numTeams > 0 || people.size() > 0) {
             Team t;
             if (numTeams > 0) {
@@ -141,6 +161,7 @@ public class MakeTeamsFragment extends Fragment {
                     teams.get(teams.size() - 1).addPerson(people.get(0));
                     people.remove(0);
                 } else {
+                    // Earliest person has smaller exp, earlier team has smaller exp
                     teams.get(teams.size() - 2).addPerson(people.get(0));
                     teams.get(teams.size() - 1).addPerson(people.get(1));
                     people.remove(0);
@@ -149,6 +170,7 @@ public class MakeTeamsFragment extends Fragment {
             }
         }
 
+        // Display team results in a table
         TableLayout table = new TableLayout(getActivity());
         TableRow.LayoutParams llp = new TableRow.LayoutParams(
                 TableLayout.LayoutParams.WRAP_CONTENT,
@@ -156,7 +178,7 @@ public class MakeTeamsFragment extends Fragment {
         llp.setMargins(0, 0, 6, 0);
         List<TableRow> rows = new ArrayList<TableRow>();
         for (int j = 0; j < teams.size(); j++) {
-            int row = j / 2; // 0 indexed row
+            int row = j / 2; // 0 indexed row, 2 teams per row
             TableRow tr;
             if (row < rows.size()) {
                 tr = rows.get(row);

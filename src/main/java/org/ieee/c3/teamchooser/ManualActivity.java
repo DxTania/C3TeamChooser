@@ -27,6 +27,11 @@ public class ManualActivity extends Activity {
         pref2 = (EditText) findViewById(R.id.pref2);
         Button submit = (Button) findViewById(R.id.submitManualId);
 
+        /**
+         * If an entry is found, signs the person in with the given preferences
+         * Else, prompts registration and eventually signs the person in
+         *  with their given preferences
+         */
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,6 +64,13 @@ public class ManualActivity extends Activity {
         });
     }
 
+    /**
+     * Handles the result of the new person activity
+     *
+     * @param requestCode Will be MANUAL
+     * @param resultCode  The result of the new person activity
+     * @param intent      The intent returned from the activity, a person string
+     */
     public void onActivityResult (int requestCode, int resultCode, Intent intent) {
         if (requestCode == MANUAL && resultCode == RESULT_OK) {
             MainActivity.resultOK(intent.getStringExtra("person"), ManualActivity.this);

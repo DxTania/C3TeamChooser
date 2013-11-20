@@ -39,6 +39,9 @@ public class SettingsFragment extends Fragment {
         activity = (MainActivity) getActivity();
         queryResults = (LinearLayout) rootView.findViewById(R.id.queryResults);
 
+        /**
+         * Clears the file "people.csv"
+         */
         Button clearPeople = (Button) rootView.findViewById(R.id.clearCsv);
         clearPeople.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +75,9 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+        /**
+         * Clears the currently signed in people
+         */
         Button clearSignedIn = (Button) rootView.findViewById(R.id.clearSignedIn);
         clearSignedIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +100,9 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+        /**
+         * Displays the currently signed in people
+         */
         Button viewSignedIn = (Button) rootView.findViewById(R.id.viewSignedIn);
         viewSignedIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +115,9 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+        /**
+         * Displays the current file contents of people.csv
+         */
         Button viewFileContents = (Button) rootView.findViewById(R.id.viewFileContents);
         viewFileContents.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,6 +133,12 @@ public class SettingsFragment extends Fragment {
         return rootView;
     }
 
+    /**
+     * Creates and returns a text view to help with displaying query results
+     *
+     * @param text The text to use
+     * @return The TextView to return
+     */
     private TextView createRow(String text) {
         TextView row = new TextView(activity);
         row.setText(text);

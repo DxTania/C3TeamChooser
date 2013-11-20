@@ -245,6 +245,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
     /**
      * This function searches people.csv for a specific id
+     *
      * @param id The id to search for
      * @param context The context to use for file opening
      * @return Person The person if found, null otherwise
@@ -276,7 +277,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                     person[Person.UID] += c;
                 }
             }
-            Log.d("DBG Main Activity", "Found the id");
+            Log.d(TAG, "Found the id");
             // If we found the id, find the name of the person
             if (!person[Person.UID].equals("")) {
                 int count = 1; // We found one field, need 3 more
