@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class NewPersonActivity extends Activity {
+    private static String TAG = "DBG New Person Activity";
 
     private EditText nameField;
     private EditText emailField;
@@ -40,13 +41,12 @@ public class NewPersonActivity extends Activity {
             @Override
             public void onClick(View view) {
                 // Get form values
-                String name, email, uid, pref1, pref2;
+                String pref1, pref2;
                 String person[] = new String[4];
                 try {
-                    person[0] = uidField.getText().toString();
-                    person[1] = nameField.getText().toString();
-                    person[2] = emailField.getText().toString();
-
+                    person[Person.UID] = uidField.getText().toString();
+                    person[Person.NAME] = nameField.getText().toString();
+                    person[Person.EMAIL] = emailField.getText().toString();
                     pref1 = getIntent().getStringExtra("pref1");
                     pref2 = getIntent().getStringExtra("pref2");
                 } catch (NullPointerException e) {
@@ -54,12 +54,13 @@ public class NewPersonActivity extends Activity {
                             "and try again.", NewPersonActivity.this);
                     return;
                 }
-                person[3] = getExpValue(exp.getCheckedRadioButtonId());
-                if (person[3].equals("0")) {
+                person[Person.EXP] = getExpValue(exp.getCheckedRadioButtonId());
+                if (person[Person.EXP].equals("0")) {
                     MainActivity.toast("Please enter your experience", NewPersonActivity.this);
                     return;
                 }
 
+                // Write form values to file
                 if (writeEntryToFile(person)) {
                     MainActivity.toast("Thanks for registering, you've now been signed in!",
                             NewPersonActivity.this);
@@ -82,11 +83,12 @@ public class NewPersonActivity extends Activity {
 
     /**
      * Gets the value 1-5 of the selected radio button.
+     *
      * @param id The R.id.x value of the radio button
      * @return int The value of the radio button
      */
     private String getExpValue(int id) {
-        switch(id) {
+        switch (id) {
             case R.id.eOne:
                 return "1";
             case R.id.eTwo:
@@ -105,6 +107,7 @@ public class NewPersonActivity extends Activity {
 
     /**
      * Writes a csv entry to the end of people.csv
+     *
      * @param person The string array representing the person
      * @return boolean Successful or not
      */
@@ -112,17 +115,17 @@ public class NewPersonActivity extends Activity {
         // Write values to csv file
         try {
             FileOutputStream fos = openFileOutput("people.csv", Context.MODE_APPEND);
-            String csvEntry = person[0] + "," + person[1] + ","
-                    + person[2] + "," + person[3] + "\n";
+            String csvEntry = person[Person.UID] + "," + person[Person.NAME] + ","
+                    + person[Person.EMAIL] + "," + person[Person.EXP] + "\n";
             fos.write(csvEntry.getBytes());
             fos.close();
             return true;
         } catch (FileNotFoundException e) {
-            Log.d("DBG New Person Activity", "File not found");
+            Log.d(TAG, "File not found");
             MainActivity.toast(null, NewPersonActivity.this);
             return false;
         } catch (IOException e) {
-            Log.d("DBG New Person Activity", "IO Exception!");
+            Log.d(TAG, "IO Exception!");
             MainActivity.toast(null, NewPersonActivity.this);
             return false;
         }

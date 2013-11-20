@@ -16,12 +16,15 @@ import org.ieee.c3.teamchooser.R;
 import org.ieee.c3.teamchooser.components.Person;
 
 public class RegisterFragment extends Fragment {
-    public Button scanBarcode, enterUid;
+    private static String TAG = "DBG Register Fragment";
     private static final int BARCODE = 0;
     private static final int MANUAL = 1;
     private static final int SCANNED = 2;
 
-    public RegisterFragment() { }
+    public Button scanBarcode, enterUid;
+
+    public RegisterFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,7 +32,7 @@ public class RegisterFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_register, container, false);
         if (rootView == null) {
             MainActivity.toast("Something went wrong! :(", getActivity());
-            Log.d("Register Fragment", "Error, null view");
+            Log.d(TAG, "Error, null view");
             return null;
         }
 
@@ -58,14 +61,14 @@ public class RegisterFragment extends Fragment {
     }
 
     /**
-     *  This method handles intents that were started for a result, such
-     *  as the barcode or manual UID entry intents.
+     * This method handles intents that were started for a result, such
+     * as the barcode or manual UID entry intents.
      *
      * @param requestCode The code which indicates which activity finished
-     * @param resultCode The code which indicates the success or failure of the activity
-     * @param intent The intent which was used to start the activity
+     * @param resultCode  The code which indicates the success or failure of the activity
+     * @param intent      The intent which was used to start the activity
      */
-    public void onActivityResult (int requestCode, int resultCode, Intent intent) {
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == BARCODE) {
             if (resultCode == Activity.RESULT_OK) {
                 MainActivity activity = (MainActivity) getActivity();

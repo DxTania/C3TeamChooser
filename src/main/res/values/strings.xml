@@ -25,5 +25,6 @@
     <string name="preference2">Person 2 Preference Full Name</string>
     <string name="unsure">If you aren\'t sure, choose your year.</string>
     <string name="rate">Rate your Experience</string>
+    <string name="click_it">Just Click It!</string>
 
 </resources>

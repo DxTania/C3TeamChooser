@@ -22,12 +22,14 @@ import org.ieee.c3.teamchooser.fragments.SettingsFragment;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
+    private static String TAG = "DBG Main Activity";
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -45,12 +47,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     ViewPager mViewPager;
 
     public List<Person> todaysPeople;
-
-    // Make enumeration and use this for person creation
-    public static final int UID = 0;
-    public static final int NAME = 1;
-    public static final int EMAIL = 2;
-    public static final int EXP = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +69,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();
         if (actionBar == null) {
-            Log.d("DBG Main Activity", "Action bar was null");
+            Log.d(TAG, "Action bar was null");
             return;
         }
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -199,6 +195,54 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         return todaysPeople;
     }
 
+    public void writeToFile() {
+        FileOutputStream fos;
+        try {
+            fos = this.openFileOutput("people.csv", Context.MODE_PRIVATE);
+        } catch (FileNotFoundException e) {
+            return;
+        }
+        String csv = "604323692,Evan Xue,evan11seven@gmail.com,1\n" +
+                "204281364,Saad Syed,saadnsyed@gmail.com,1\n" +
+                "604273687,Ali Jishi,alijishi444@ucla.edu,1\n" +
+                "704210147,Negin Kialoni,nkialoni@gmail.com,1\n" +
+                "404144615,Zeeshan Pirzada,pirzadaza@gmail.com,3\n" +
+                "504027395,Arjun Patel,arjunpatel422@gmail.com,3\n" +
+                "104264765,Caleb Choi,calebc1205@gmail.com,1\n" +
+                "204277357,Elijah Agbayani,su-sa@live.com,2\n" +
+                "404322900,Jared Aguayo,jaredmtaguayo@gmail.com,1\n" +
+                "803946252,Nick Yee,nickjyee@gmail.com,1\n" +
+                "304205341,Matteo Vesprini-Heidrich,matteovh@ucla.edu,2\n" +
+                "404059235,Sean Yuxuan Chen,adonisglory@gmail.com,2\n" +
+                "204289633,Roy Xia,royxia062@gmail.com,2\n" +
+                "404293926,Sichen Zhao,luxwig@ucla.edu,2\n" +
+                "904178226,Albert Wong,albert_wong818@yahoo.com,2\n" +
+                "604031740,Amy Tsao,amy.tsao227@gmail.com,4\n" +
+                "4263691,Crystal Hsieh,crystalhsieh7@gmail.com,3\n" +
+                "4303673,Jonathan Tung,jonathant453@gmail.com,1\n" +
+                "404059235,SEAN YUXUAN CHEN,adonisglory@gmail.com,2\n" +
+                "4315572,alexander omar,atomar94@ucla.edu,3\n" +
+                "704264475,Sid Narayan,indysidnarayan@gmail.com,2\n" +
+                "704055472,Pallavi Advani,pallavi_krishna@hotmail.com,1\n" +
+                "104029546,Ethan Lu,ethanlu3@ucla.edu,3\n" +
+                "604273687,Ali Jishi,alijishi444@ucla.edu,1\n" +
+                "404252775,Nicholas Chung,nickchung114@g.ucla.edu,2\n" +
+                "804182525,Calvin Liu,CalvinLiu411@gmail.com,2\n" +
+                "903982490,Jacob Sharf,jacobsharf@gmail.com,5\n" +
+                "704018998,Tania DePasquale,rawrtan@gmail.com,4\n" +
+                "004315572,Alex Omar,atomar94@ucla.edu,3\n" +
+                "704344731,kuan-hsuan Yeh,vic317yeh@ucla.edu,2\n" +
+                "304343286,Kai Yanh,kai.yang412@gmail.com,1\n" +
+                "604296523,Vladimir Vysotsky,vlad345@gmail.com,4\n" +
+                "004303673,Jonathan Tung,jonathant453@gmail.com,1\n";
+        try {
+            fos.write(csv.getBytes());
+        } catch (IOException e) {
+
+        }
+
+    }
+
     /**
      * This function searches people.csv for a specific id
      * @param id The id to search for
@@ -210,7 +254,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         try {
             fos = context.openFileInput("people.csv");
         } catch (FileNotFoundException e) {
-            Log.d("DBG Main Activity", "File not found!");
+            Log.d(TAG, "File not found!");
             MainActivity.toast(null, context);
             return null;
         }
@@ -222,23 +266,19 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             while((content = fos.read()) != -1) {
                 char c = (char) content;
                 if (c == ',' || c == '\n') {
-                    if (person[0].equals(id)) {
+                    if (person[Person.UID].equals(id)) {
                         break;
                     } else {
-                        person[0] = "";
+                        person[Person.UID] = "";
                     }
-                    if (c == ',') {
-                        ignore = true;
-                    } else {
-                        ignore = false;
-                    }
+                    ignore = c == ',';
                 } else if (!ignore) {
-                    person[0] += c;
+                    person[Person.UID] += c;
                 }
             }
             Log.d("DBG Main Activity", "Found the id");
             // If we found the id, find the name of the person
-            if (!person[0].equals("")) {
+            if (!person[Person.UID].equals("")) {
                 int count = 1; // We found one field, need 3 more
                 while((content = fos.read()) != -1) {
                     char c = (char) content;
@@ -250,13 +290,13 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                     } else {
                         switch (count) {
                             case 1: // name
-                                person[1] += c;
+                                person[Person.NAME] += c;
                                 break;
                             case 2: // email
-                                person[2] += c;
+                                person[Person.EMAIL] += c;
                                 break;
                             case 3: // exp
-                                person[3] += c;
+                                person[Person.EXP] += c;
                                 break;
                         }
                     }
@@ -264,12 +304,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             }
             fos.close();
         } catch(IOException e) {
-            Log.d("DBG Main Activity", "IO Exception");
+            Log.d(TAG, "IO Exception");
             MainActivity.toast(null, context);
             return null;
         }
         if (person[0].equals("")) return null;
-        Log.d("DBG Main Activity", "Returning a person");
+        Log.d(TAG, "Returning a person");
         return new Person(person);
     }
 
@@ -292,7 +332,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         } catch (FileNotFoundException e) {
             return "";
         } catch (IOException e) {
-            Log.d("DBG Make Teams Fragment:", "IO Exception");
+            Log.d(TAG, "IO Exception");
             MainActivity.toast(null, context);
             return "";
         }

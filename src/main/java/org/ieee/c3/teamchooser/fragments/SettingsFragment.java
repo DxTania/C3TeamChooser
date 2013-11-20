@@ -1,6 +1,8 @@
 package org.ieee.c3.teamchooser.fragments;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -20,6 +22,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class SettingsFragment extends Fragment {
+    private static String TAG = "DBG Settings Fragment";
 
     private LinearLayout queryResults;
     private MainActivity activity;
@@ -30,7 +33,7 @@ public class SettingsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
         if (rootView == null) {
             MainActivity.toast(null, getActivity());
-            Log.d("People Fragment", "Error, null view");
+            Log.d(TAG, "Error, null view");
             return null;
         }
         activity = (MainActivity) getActivity();
@@ -40,18 +43,32 @@ public class SettingsFragment extends Fragment {
         clearPeople.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FileOutputStream fos;
-                try {
-                    fos = activity.openFileOutput("people.csv", Context.MODE_PRIVATE);
-                    fos.flush();
-                    fos.close();
-                } catch (FileNotFoundException e) {
-                    Log.d("DBG People Fragment", "File not found");
-                    MainActivity.toast(null, activity);
-                } catch (IOException e) {
-                    Log.d("DBG People Fragment:", "IO Exception");
-                    MainActivity.toast(null, activity);
-                }
+                DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        switch (i) {
+                            case DialogInterface.BUTTON_POSITIVE:
+                                FileOutputStream fos;
+                                try {
+                                    fos = activity.openFileOutput("people.csv", Context.MODE_PRIVATE);
+                                    fos.flush();
+                                    fos.close();
+                                } catch (FileNotFoundException e) {
+                                    Log.d(TAG, "File not found");
+                                    MainActivity.toast(null, activity);
+                                } catch (IOException e) {
+                                    Log.d(TAG, "IO Exception");
+                                    MainActivity.toast(null, activity);
+                                }
+                        }
+                    }
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                builder.setMessage("Are you sure you want to delete people.csv?");
+                builder.setPositiveButton("Yes", listener);
+                builder.setNegativeButton("No", listener);
+                builder.show();
             }
         });
 
@@ -59,7 +76,21 @@ public class SettingsFragment extends Fragment {
         clearSignedIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                activity.getTodaysPeople().clear();
+                DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        switch (i) {
+                            case DialogInterface.BUTTON_POSITIVE:
+                                activity.getTodaysPeople().clear();
+                        }
+                    }
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                builder.setMessage("Are you sure you want to clear sign ins?");
+                builder.setPositiveButton("Yes", listener);
+                builder.setNegativeButton("No", listener);
+                builder.show();
             }
         });
 

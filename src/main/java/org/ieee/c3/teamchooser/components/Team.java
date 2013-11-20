@@ -32,9 +32,9 @@ public class Team {
 
     @Override
     public String toString() {
-        String text = "Avg Exp: " + avgExp + " | ";
+        String text = "Avg Exp: " + String.format("%.2f", avgExp) + "\n";
         for (Person p : people) {
-            text += p.getName() + ":" + String.valueOf(p.getExp()) + "|";
+            text += "-" + p.getName() + ": " + String.valueOf(p.getExp()) + "\n";
         }
         return text;
     }

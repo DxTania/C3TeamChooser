@@ -1,14 +1,13 @@
 package org.ieee.c3.teamchooser.fragments;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.*;
 import org.ieee.c3.teamchooser.MainActivity;
 import org.ieee.c3.teamchooser.R;
 import org.ieee.c3.teamchooser.components.Person;
@@ -17,21 +16,22 @@ import org.ieee.c3.teamchooser.components.Team;
 import java.util.*;
 
 public class MakeTeamsFragment extends Fragment {
+    private static String TAG = "DBG Make Teams Fragment";
 
     private Button makeTeams;
-    private LinearLayout teamText;
+    private ScrollView teamView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_teams, container, false);
         if (rootView == null) {
-            Log.d("DBG Make Teams Fragment:", "View was null");
+            Log.d(TAG, "View was null");
             MainActivity.toast(null, getActivity());
             return null;
         }
         makeTeams = (Button) rootView.findViewById(R.id.makeTeams);
-        teamText = (LinearLayout) rootView.findViewById(R.id.teamText);
+        teamView = (ScrollView) rootView.findViewById(R.id.teamView);
 
         makeTeams.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,28 +45,35 @@ public class MakeTeamsFragment extends Fragment {
 
     private void createTeams() {
         MainActivity activity = (MainActivity) getActivity();
-        List<Person> people = activity.getTodaysPeople();
+        List<Person> people = new ArrayList<Person>(activity.getTodaysPeople());
         List<Team> teams = new ArrayList<Team>();
+
+        // Extras will create teams of 4
         int numTeams = people.size() / 3;
 
         // Take care of people with preferences
         Iterator<Person> i = people.iterator();
         List<String> toRemove = new ArrayList<String>();
         while (i.hasNext()) {
-            Person p = i.next(); // must be called before you can call i.remove()
+            // Get next person and their preferences
+            Person p = i.next();
             List<String> prefs = p.getPreferences();
-            if (prefs.size() > 0) {
+
+            if (prefs.size() > 0 && !toRemove.contains(p.getName())) {
                 Team t = new Team();
                 numTeams--;
                 t.addPerson(p);
                 for (Person pr : people) {
-                    if (prefs.get(0).equalsIgnoreCase(pr.getName())) {
+                    if (pr.equals(p)) {
+                        continue;
+                    }
+                    if (prefs.get(0).equalsIgnoreCase(pr.getName()) && !toRemove.contains(pr.getName())) {
                         t.addPerson(pr);
                         toRemove.add(pr.getName());
-                    } else if (prefs.size() > 1 && prefs.get(1).equalsIgnoreCase(pr.getName())) {
+                    }
+                    if (prefs.size() > 1 && prefs.get(1).equalsIgnoreCase(pr.getName()) && !toRemove.contains(pr.getName())) {
                         t.addPerson(pr);
                         toRemove.add(pr.getName());
-                        prefs.remove(1);
                     }
                 }
                 teams.add(t);
@@ -74,12 +81,12 @@ public class MakeTeamsFragment extends Fragment {
             }
         }
 
-        // Delete those who were just added to teams
+        // Delete those who were just added to teams from people list
         for (String s : toRemove) {
             i = people.iterator();
             while (i.hasNext()) {
                 Person p = i.next();
-                if (p.getName().equals(s)) {
+                if (p.getName().equalsIgnoreCase(s)) {
                     i.remove();
                     break;
                 }
@@ -97,11 +104,11 @@ public class MakeTeamsFragment extends Fragment {
         for (Team t : teams) {
             double delta = 0;
             if (t.getPeople().size() < 3) {
-                while (t.getPeople().size() < 3) {
+                while (t.getPeople().size() < 3 && people.size() > 0) {
                     i = people.iterator();
                     while (i.hasNext() && t.getPeople().size() < 3) {
                         Person p = i.next();
-                        if (p.getExp() > t.getAvgExp() - delta && p.getExp() < t.getAvgExp() + delta) {
+                        if (p.getExp() >= t.getAvgExp() - delta && p.getExp() <= t.getAvgExp() + delta) {
                             t.addPerson(p);
                             i.remove();
                         }
@@ -112,34 +119,79 @@ public class MakeTeamsFragment extends Fragment {
         }
 
         // Create teams of 3 from the sorted list
-        int ovf = 0;
         while (numTeams > 0 || people.size() > 0) {
             Team t;
             if (numTeams > 0) {
                 t = new Team();
                 teams.add(t);
                 numTeams--;
+                while (t.getPeople().size() < 3 && people.size() > 0) {
+                    t.addPerson(people.get(0));
+                    people.remove(0);
+                }
             } else {
-                t = teams.get(ovf);
-                ovf++;
-                t.addPerson(people.get(0));
-                people.remove(0);
-                continue;
-            }
-
-            while (t.getPeople().size() < 3 && people.size() > 1) {
-                t.addPerson(people.get(0));
-                people.remove(0);
+                // Sort the teams by experience
+                Collections.sort(teams, new Comparator<Team>() {
+                    public int compare(Team t1, Team t2) {
+                        return (int) (t1.getAvgExp() - t2.getAvgExp());
+                    }
+                });
+                // There will be at most 2 extra people to put on teams
+                if (people.size() == 1) {
+                    teams.get(teams.size() - 1).addPerson(people.get(0));
+                    people.remove(0);
+                } else {
+                    teams.get(teams.size() - 2).addPerson(people.get(0));
+                    teams.get(teams.size() - 1).addPerson(people.get(1));
+                    people.remove(0);
+                    people.remove(1);
+                }
             }
         }
 
-        teamText.removeAllViews();
-        for (Team t : teams) {
-            TextView txt = new TextView(activity);
-            txt.setText(t.toString());
-            teamText.addView(txt);
-        }
+        TableLayout table = new TableLayout(getActivity());
+        TableRow.LayoutParams llp = new TableRow.LayoutParams(
+                TableLayout.LayoutParams.WRAP_CONTENT,
+                TableLayout.LayoutParams.WRAP_CONTENT);
+        llp.setMargins(0, 0, 6, 0);
+        List<TableRow> rows = new ArrayList<TableRow>();
+        for (int j = 0; j < teams.size(); j++) {
+            int row = j / 2; // 0 indexed row
+            TableRow tr;
+            if (row < rows.size()) {
+                tr = rows.get(row);
+            } else {
+                tr = new TableRow(getActivity());
+                tr.setPadding(0, 0, 0, 2);
+                rows.add(tr);
+                table.addView(tr);
+            }
 
+            LinearLayout cell = new LinearLayout(getActivity());
+            cell.setLayoutParams(llp);
+
+            TextView peopleList = new TextView(getActivity());
+            String peopleString = "", expString = "";
+            List<Person> teamMembers = teams.get(j).getPeople();
+            for (Person teamMember : teamMembers) {
+                peopleString += teamMember.getAbbrName() + "\n";
+                expString += String.format("%.0f", teamMember.getExp()) + ",";
+            }
+            expString = expString.substring(0, expString.length() - 1);
+            peopleList.setText(peopleString);
+
+            TextView teamNum = new TextView(getActivity());
+            teamNum.setPadding(0, 0, 15, 0);
+            teamNum.setTypeface(null, Typeface.BOLD);
+            teamNum.setText("Team #" + (j + 1) + "\n~" +
+                    String.format("%.2f", teams.get(j).getAvgExp()) +
+                    "\n" + expString);
+
+            cell.addView(teamNum);
+            cell.addView(peopleList);
+            tr.addView(cell);
+        }
+        teamView.addView(table);
 
     }
 
