@@ -1,7 +1,6 @@
 C3TeamChooser
 =============
-
-_C3TeamChooser_ Is an android app which simplifies the process of organizing a
+**C3TeamChooser** Is an android app which simplifies the process of organizing a
 group of students into teams. The app is made specifically for UCLA students,
 and accepts identification in the form of a bruincard (by scanning the barcode
 via the phone's camera) or by entering your student ID. Participants can
