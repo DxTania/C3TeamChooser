@@ -202,44 +202,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         } catch (FileNotFoundException e) {
             return;
         }
-        String csv = "604323692,Evan Xue,evan11seven@gmail.com,1\n" +
-                "204281364,Saad Syed,saadnsyed@gmail.com,1\n" +
-                "604273687,Ali Jishi,alijishi444@ucla.edu,1\n" +
-                "704210147,Negin Kialoni,nkialoni@gmail.com,1\n" +
-                "404144615,Zeeshan Pirzada,pirzadaza@gmail.com,3\n" +
-                "504027395,Arjun Patel,arjunpatel422@gmail.com,3\n" +
-                "104264765,Caleb Choi,calebc1205@gmail.com,1\n" +
-                "204277357,Elijah Agbayani,su-sa@live.com,2\n" +
-                "404322900,Jared Aguayo,jaredmtaguayo@gmail.com,1\n" +
-                "803946252,Nick Yee,nickjyee@gmail.com,1\n" +
-                "304205341,Matteo Vesprini-Heidrich,matteovh@ucla.edu,2\n" +
-                "404059235,Sean Yuxuan Chen,adonisglory@gmail.com,2\n" +
-                "204289633,Roy Xia,royxia062@gmail.com,2\n" +
-                "404293926,Sichen Zhao,luxwig@ucla.edu,2\n" +
-                "904178226,Albert Wong,albert_wong818@yahoo.com,2\n" +
-                "604031740,Amy Tsao,amy.tsao227@gmail.com,4\n" +
-                "4263691,Crystal Hsieh,crystalhsieh7@gmail.com,3\n" +
-                "4303673,Jonathan Tung,jonathant453@gmail.com,1\n" +
-                "404059235,SEAN YUXUAN CHEN,adonisglory@gmail.com,2\n" +
-                "4315572,alexander omar,atomar94@ucla.edu,3\n" +
-                "704264475,Sid Narayan,indysidnarayan@gmail.com,2\n" +
-                "704055472,Pallavi Advani,pallavi_krishna@hotmail.com,1\n" +
-                "104029546,Ethan Lu,ethanlu3@ucla.edu,3\n" +
-                "604273687,Ali Jishi,alijishi444@ucla.edu,1\n" +
-                "404252775,Nicholas Chung,nickchung114@g.ucla.edu,2\n" +
-                "804182525,Calvin Liu,CalvinLiu411@gmail.com,2\n" +
-                "903982490,Jacob Sharf,jacobsharf@gmail.com,5\n" +
-                "704018998,Tania DePasquale,rawrtan@gmail.com,4\n" +
-                "004315572,Alex Omar,atomar94@ucla.edu,3\n" +
-                "704344731,kuan-hsuan Yeh,vic317yeh@ucla.edu,2\n" +
-                "304343286,Kai Yanh,kai.yang412@gmail.com,1\n" +
-                "604296523,Vladimir Vysotsky,vlad345@gmail.com,4\n" +
-                "004303673,Jonathan Tung,jonathant453@gmail.com,1\n";
-        try {
+        /*try {
             fos.write(csv.getBytes());
         } catch (IOException e) {
 
-        }
+        }*/
 
     }
 
