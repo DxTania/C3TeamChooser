@@ -22,7 +22,6 @@ import org.ieee.c3.teamchooser.fragments.SettingsFragment;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -111,7 +110,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-    
+
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
         // When the given tab is selected, switch to the corresponding page in
@@ -141,7 +140,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             Fragment fragment;
-            switch(position) {
+            switch (position) {
                 case 0:
                     fragment = new RegisterFragment();
                     break;
@@ -151,9 +150,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                 default:
                     fragment = new SettingsFragment();
             }
-            //Bundle args = new Bundle();
-            //args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
-            //fragment.setArguments(args);
             return fragment;
         }
 
@@ -195,25 +191,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         return todaysPeople;
     }
 
-    public void writeToFile() {
-        FileOutputStream fos;
-        try {
-            fos = this.openFileOutput("people.csv", Context.MODE_PRIVATE);
-        } catch (FileNotFoundException e) {
-            return;
-        }
-        /*try {
-            fos.write(csv.getBytes());
-        } catch (IOException e) {
-
-        }*/
-
-    }
-
     /**
      * This function searches people.csv for a specific id
      *
-     * @param id The id to search for
+     * @param id      The id to search for
      * @param context The context to use for file opening
      * @return Person The person if found, null otherwise
      */
@@ -231,7 +212,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         String person[] = {"", "", "", ""};
         try {
             boolean ignore = false;
-            while((content = fos.read()) != -1) {
+            while ((content = fos.read()) != -1) {
                 char c = (char) content;
                 if (c == ',' || c == '\n') {
                     if (person[Person.UID].equals(id)) {
@@ -248,7 +229,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             // If we found the id, find the name of the person
             if (!person[Person.UID].equals("")) {
                 int count = 1; // We found one field, need 3 more
-                while((content = fos.read()) != -1) {
+                while ((content = fos.read()) != -1) {
                     char c = (char) content;
                     if (c == ',') {
                         count++;
@@ -271,7 +252,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                 }
             }
             fos.close();
-        } catch(IOException e) {
+        } catch (IOException e) {
             Log.d(TAG, "IO Exception");
             MainActivity.toast(null, context);
             return null;
@@ -292,7 +273,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         int content;
         try {
             FileInputStream fos = context.openFileInput("people.csv");
-            while((content = fos.read()) != -1) {
+            while ((content = fos.read()) != -1) {
                 file += (char) content;
             }
             fos.close();
