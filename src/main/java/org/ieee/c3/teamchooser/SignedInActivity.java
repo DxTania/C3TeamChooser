@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import org.ieee.c3.teamchooser.components.Person;
 
@@ -28,61 +29,90 @@ public class SignedInActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signed_in);
 
-        ListView listView = (ListView) findViewById(R.id.listview);
-
-        // Get and sort signed in people by UID
-        String peopleString;
-        if ((peopleString = getIntent().getStringExtra("people")) == null) {
-            MainActivity.toast(null, SignedInActivity.this);
-            return;
-        }
-        String values[] = peopleString.split(";");
-        peopleList = new ArrayList<String>();
-        people = new ArrayList<Person>();
-        for (String value : values) {
-            Person p = new Person(value);
-            people.add(p);
-            peopleList.add(p.getUid() + ": " + p.getName());
-        }
-        Collections.sort(peopleList);
-        Collections.sort(people, new Comparator<Person>() {
-            public int compare(Person p1, Person p2) {
-                return p1.getUid().compareTo(p2.getUid());
-            }
-        });
-
+        ListView listView = (ListView) findViewById(R.id.listView);
         /**
-         * Clicking on a person prompts deletion of their sign in
+         * Clears the currently signed in people
          */
-        uids = new ArrayList<String>();
-        adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, peopleList);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        Button clearSignedIn = (Button) findViewById(R.id.clearSignedIn);
+        clearSignedIn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View v, final int pos, long l) {
-                // Remove from lists
-                final Person p = people.get(pos);
+            public void onClick(View view) {
                 DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         switch (i) {
                             case DialogInterface.BUTTON_POSITIVE:
-                                uids.add(p.getUid());
-                                peopleList.remove(pos);
-                                people.remove(pos);
-                                adapter.notifyDataSetChanged();
+                                Intent returnIntent = new Intent();
+                                returnIntent.putExtra("clear", true);
+                                SignedInActivity.this.setResult(RESULT_OK, returnIntent);
+                                SignedInActivity.this.finish();
                         }
                     }
                 };
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(SignedInActivity.this);
-                builder.setMessage("Delete " + p.getName() + "?");
+                builder.setMessage("Are you sure you want to clear sign ins?");
                 builder.setPositiveButton("Yes", listener);
                 builder.setNegativeButton("No", listener);
                 builder.show();
             }
         });
+
+        uids = new ArrayList<String>();
+        peopleList = getIntent().getStringArrayListExtra("people");
+        adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, peopleList);
+
+        // Get and sort signed in people by UID
+        if (peopleList == null || peopleList.size() == 0) {
+            if (peopleList == null) {
+                peopleList = new ArrayList<String>();
+            }
+            peopleList.add("No people to display!");
+        } else {
+            people = new ArrayList<Person>();
+            for (int i = 0; i < peopleList.size(); i++) {
+                Person p = new Person(peopleList.get(i));
+                people.add(p);
+                peopleList.set(i, p.getUid() + ": " + p.getName());
+            }
+            Collections.sort(peopleList);
+            Collections.sort(people, new Comparator<Person>() {
+                public int compare(Person p1, Person p2) {
+                    return p1.getUid().compareTo(p2.getUid());
+                }
+            });
+
+            /**
+             * Clicking on a person prompts deletion of their sign in
+             */
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View v, final int pos, long l) {
+                    // Remove from lists
+                    final Person p = people.get(pos);
+                    DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            switch (i) {
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    uids.add(p.getUid());
+                                    peopleList.remove(pos);
+                                    people.remove(pos);
+                                    adapter.notifyDataSetChanged();
+                            }
+                        }
+                    };
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SignedInActivity.this);
+                    builder.setMessage("Delete " + p.getName() + "?");
+                    builder.setPositiveButton("Yes", listener);
+                    builder.setNegativeButton("No", listener);
+                    builder.show();
+                }
+            });
+        }
+        listView.setAdapter(adapter);
     }
 
     @Override

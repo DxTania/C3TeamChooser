@@ -16,7 +16,7 @@ import org.ieee.c3.teamchooser.R;
 import org.ieee.c3.teamchooser.components.Person;
 
 public class RegisterFragment extends Fragment {
-    private static String TAG = "DBG Register Fragment";
+    private static final String TAG = "DBG Register Fragment";
     private static final int BARCODE = 0;
     private static final int MANUAL = 1;
     private static final int SCANNED = 2;

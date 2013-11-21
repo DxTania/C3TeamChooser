@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
-    private static String TAG = "DBG Main Activity";
+    private static final String TAG = "DBG Main Activity";
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -54,7 +54,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
         todaysPeople = new ArrayList<Person>();
 
-        // Restore people and ids signed in from application destruction.
+        // Restore people and ids signed in from application destruction
+        // The string is delimited by ;
         SharedPreferences prefs = getPreferences(MODE_PRIVATE);
         String restoredText = prefs.getString("peopleList", null);
         if (restoredText != null) {
@@ -225,7 +226,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                     person[Person.UID] += c;
                 }
             }
-            Log.d(TAG, "Found the id");
             // If we found the id, find the name of the person
             if (!person[Person.UID].equals("")) {
                 int count = 1; // We found one field, need 3 more
@@ -258,7 +258,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             return null;
         }
         if (person[0].equals("")) return null;
-        Log.d(TAG, "Returning a person");
         return new Person(person);
     }
 
@@ -303,12 +302,16 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     /**
      * Signs person given in so they may be team matched
      *
-     * @param p The person to sign in
+     * @param s The person to sign in
      */
-    public void signIn(Person p) {
-        todaysPeople.add(p);
+    public void signIn(Person s) {
+        todaysPeople.add(s);
         SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
-        editor.putString("peopleList", getPeopleString());
+        String result = "";
+        for (Person p : todaysPeople) {
+            result += p.toString() + ";";
+        }
+        editor.putString("peopleList", result);
         editor.commit();
     }
 
@@ -328,16 +331,16 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     }
 
     /**
-     * Creates a string delimited by ; of people strings
+     * Creates an array list of people strings
      *
-     * @return A string representing all people signed in
+     * @return The array list of strings
      */
-    public String getPeopleString() {
-        String result = "";
+    public ArrayList<String> getPeopleStringList() {
+        ArrayList<String> peopleList = new ArrayList<String>();
         for (Person p : todaysPeople) {
-            result += p.toString() + ";";
+            peopleList.add(p.toString());
         }
-        return result;
+        return peopleList;
     }
 
 }

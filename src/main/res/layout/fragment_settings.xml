@@ -25,12 +25,6 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/clear_signed_in"
-        android:id="@+id/clearSignedIn"/>
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
         android:text="@string/view_ids_signed_in"
         android:id="@+id/viewSignedIn"/>
 

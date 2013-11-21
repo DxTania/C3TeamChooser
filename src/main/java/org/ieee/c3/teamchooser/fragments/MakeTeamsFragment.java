@@ -19,7 +19,7 @@ import org.ieee.c3.teamchooser.components.Team;
 import java.util.*;
 
 public class MakeTeamsFragment extends Fragment {
-    private static String TAG = "DBG Make Teams Fragment";
+    private static final String TAG = "DBG Make Teams Fragment";
 
     private Button makeTeams;
     private ScrollView teamView;
@@ -188,6 +188,7 @@ public class MakeTeamsFragment extends Fragment {
             LinearLayout tr = new LinearLayout(getActivity());
             tr.setOrientation(LinearLayout.HORIZONTAL);
 
+            // Members & exp
             TextView peopleList = new TextView(getActivity());
             String peopleString = "", expString = "";
             List<Person> teamMembers = teams.get(j).getPeople();

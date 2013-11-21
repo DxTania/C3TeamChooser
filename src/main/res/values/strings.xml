@@ -26,5 +26,6 @@
     <string name="unsure">If you aren\'t sure, choose your year.</string>
     <string name="rate">Rate your Experience</string>
     <string name="click_it">Just Click It!</string>
+    <string name="clear_all">Clear All</string>
 
 </resources>

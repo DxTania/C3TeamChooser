@@ -26,8 +26,8 @@ import java.util.Iterator;
 import java.util.List;
 
 public class SettingsFragment extends Fragment {
-    private static String TAG = "DBG Settings Fragment";
-    private static final int SIGNEDIN = 4;
+    private static final String TAG = "DBG Settings Fragment";
+    private static final int SIGNEDIN = 0;
 
     private LinearLayout queryResults;
     private MainActivity activity;
@@ -81,31 +81,6 @@ public class SettingsFragment extends Fragment {
         });
 
         /**
-         * Clears the currently signed in people
-         */
-        Button clearSignedIn = (Button) rootView.findViewById(R.id.clearSignedIn);
-        clearSignedIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        switch (i) {
-                            case DialogInterface.BUTTON_POSITIVE:
-                                activity.getTodaysPeople().clear();
-                        }
-                    }
-                };
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-                builder.setMessage("Are you sure you want to clear sign ins?");
-                builder.setPositiveButton("Yes", listener);
-                builder.setNegativeButton("No", listener);
-                builder.show();
-            }
-        });
-
-        /**
          * Displays the currently signed in people in a list view (new activity)
          */
         Button viewSignedIn = (Button) rootView.findViewById(R.id.viewSignedIn);
@@ -113,7 +88,7 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(activity, SignedInActivity.class);
-                intent.putExtra("people", activity.getPeopleString());
+                intent.putStringArrayListExtra("people", activity.getPeopleStringList());
                 startActivityForResult(intent, SIGNEDIN);
             }
         });
@@ -158,9 +133,13 @@ public class SettingsFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         // Remove people from real signed in list
         if (requestCode == SIGNEDIN && resultCode == Activity.RESULT_OK) {
+            boolean clear = intent.getBooleanExtra("clear", false);
+            if (clear) {
+                activity.getTodaysPeople().clear();
+                return;
+            }
             List<String> uids = intent.getStringArrayListExtra("uids");
             if (uids == null) {
-                MainActivity.toast(null, activity);
                 return;
             }
             List<Person> people = activity.getTodaysPeople();

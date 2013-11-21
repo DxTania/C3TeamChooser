@@ -9,12 +9,11 @@ import android.widget.EditText;
 import org.ieee.c3.teamchooser.components.Person;
 
 public class ManualActivity extends Activity {
+    private static final int MANUAL = 0;
 
     private EditText uid;
     private EditText pref1;
     private EditText pref2;
-
-    private static final int MANUAL = 3;
 
     public ManualActivity() {}
 

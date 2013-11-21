@@ -16,11 +16,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class NewPersonActivity extends Activity {
-    private static String TAG = "DBG New Person Activity";
+    private static final String TAG = "DBG New Person Activity";
 
-    private EditText nameField;
-    private EditText emailField;
-    private EditText uidField;
+    private EditText nameField, emailField, uidField;
     private Button submitButton;
     private RadioGroup exp;
 
