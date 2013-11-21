@@ -1,8 +1,10 @@
 package org.ieee.c3.teamchooser.fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -14,15 +16,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import org.ieee.c3.teamchooser.MainActivity;
 import org.ieee.c3.teamchooser.R;
+import org.ieee.c3.teamchooser.SignedInActivity;
 import org.ieee.c3.teamchooser.components.Person;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 public class SettingsFragment extends Fragment {
     private static String TAG = "DBG Settings Fragment";
+    private static final int SIGNEDIN = 4;
 
     private LinearLayout queryResults;
     private MainActivity activity;
@@ -101,17 +106,15 @@ public class SettingsFragment extends Fragment {
         });
 
         /**
-         * Displays the currently signed in people
+         * Displays the currently signed in people in a list view (new activity)
          */
         Button viewSignedIn = (Button) rootView.findViewById(R.id.viewSignedIn);
         viewSignedIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                queryResults.removeAllViews();
-                List<Person> people = activity.getTodaysPeople();
-                for (Person p : people) {
-                    queryResults.addView(createRow(p.toString()));
-                }
+                Intent intent = new Intent(activity, SignedInActivity.class);
+                intent.putExtra("people", activity.getPeopleString());
+                startActivityForResult(intent, SIGNEDIN);
             }
         });
 
@@ -143,5 +146,31 @@ public class SettingsFragment extends Fragment {
         TextView row = new TextView(activity);
         row.setText(text);
         return row;
+    }
+
+    /**
+     * This method handles the intent started to allow deletion of a sign in
+     *
+     * @param requestCode Should be SIGNEDIN
+     * @param resultCode  The code which indicates success or failure
+     * @param intent      The return intent which should include uids to delete
+     */
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        // Remove people from real signed in list
+        if (requestCode == SIGNEDIN && resultCode == Activity.RESULT_OK) {
+            List<String> uids = intent.getStringArrayListExtra("uids");
+            if (uids == null) {
+                MainActivity.toast(null, activity);
+                return;
+            }
+            List<Person> people = activity.getTodaysPeople();
+            Iterator i = people.iterator();
+            while (i.hasNext()) {
+                Person p = (Person) i.next();
+                if (uids.contains(p.getUid())) {
+                    i.remove();
+                }
+            }
+        }
     }
 }

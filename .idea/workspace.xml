@@ -47,8 +47,14 @@
     <option name="TOOL_WINDOW_LOG_LEVEL" value="DEBUG" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="786700cf-f7c5-41a9-97dc-8fb4384b848a" name="Default" comment="Small things">
+    <list default="true" id="786700cf-f7c5-41a9-97dc-8fb4384b848a" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/SignedInActivity.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/layout/signed_in.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/components/Person.java" afterPath="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/components/Person.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/MainActivity.java" afterPath="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/MainActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/fragments/MakeTeamsFragment.java" afterPath="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/fragments/MakeTeamsFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/fragments/SettingsFragment.java" afterPath="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/fragments/SettingsFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="C3TeamChooser.iws" />
@@ -113,74 +119,121 @@
     <favorites_list name="C3TeamChooser" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="fragment_teams.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_teams.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="34" selection-start="1339" selection-end="1339" vertical-scroll-proportion="0.0" vertical-offset="85" max-vertical-offset="660">
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainActivity.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/MainActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="152" column="13" selection-start="5690" selection-end="5690" vertical-scroll-proportion="3.6372745" vertical-offset="30" max-vertical-offset="4785">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ManualActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/ManualActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="71" column="27" selection-start="2710" selection-end="2710" vertical-scroll-proportion="0.0" vertical-offset="1065" max-vertical-offset="1305">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Person.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/components/Person.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="77" column="0" selection-start="1841" selection-end="1841" vertical-scroll-proportion="0.0" vertical-offset="701" max-vertical-offset="1200">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NewPersonActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/NewPersonActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="49" column="64" selection-start="1840" selection-end="1840" vertical-scroll-proportion="0.0" vertical-offset="735" max-vertical-offset="2130">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MakeTeamsFragment.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/fragments/MakeTeamsFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="186" column="62" selection-start="7426" selection-end="7426" vertical-scroll-proportion="0.0" vertical-offset="2790" max-vertical-offset="3285">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RegisterFragment.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/fragments/RegisterFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="68" column="26" selection-start="2474" selection-end="2474" vertical-scroll-proportion="0.0" vertical-offset="1020" max-vertical-offset="1755">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.46896127">
+      <split-first>
+        <leaf>
+          <file leaf-file-name="fragment_teams.xml" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_teams.xml">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="36" column="34" selection-start="1339" selection-end="1339" vertical-scroll-proportion="-16.851852" vertical-offset="85" max-vertical-offset="660">
+                  <folding />
+                </state>
+              </provider>
+              <provider editor-type-id="android-designer">
+                <state />
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="MainActivity.java" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/MainActivity.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="299" column="52" selection-start="10623" selection-end="10711" vertical-scroll-proportion="0.0" vertical-offset="3799" max-vertical-offset="4785">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Person.java" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/components/Person.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="77" column="0" selection-start="1841" selection-end="1841" vertical-scroll-proportion="0.0" vertical-offset="701" max-vertical-offset="1200">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="NewPersonActivity.java" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/NewPersonActivity.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="49" column="64" selection-start="1840" selection-end="1840" vertical-scroll-proportion="0.0" vertical-offset="1356" max-vertical-offset="1890">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="MakeTeamsFragment.java" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/fragments/MakeTeamsFragment.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="124" column="11" selection-start="4655" selection-end="4820" vertical-scroll-proportion="0.0" vertical-offset="1440" max-vertical-offset="3000">
+                  <folding>
+                    <element signature="e#4655#4818#0" expanded="true" />
+                    <element signature="e#4807#4808#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="SettingsFragment.java" pinned="false" current="true" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/fragments/SettingsFragment.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="176" column="0" selection-start="6899" selection-end="6899" vertical-scroll-proportion="0.82725525" vertical-offset="1594" max-vertical-offset="2115">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="11" column="16" selection-start="410" selection-end="410" vertical-scroll-proportion="0.0" vertical-offset="59" max-vertical-offset="705">
+                  <folding>
+                    <element signature="e#513#531#0" expanded="true" />
+                    <element signature="e#726#744#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="MainActivity.java" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/MainActivity.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="65" column="9" selection-start="2382" selection-end="2382" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4785">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="SignedInActivity.java" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/SignedInActivity.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="52" column="65" selection-start="1723" selection-end="1723" vertical-scroll-proportion="0.0" vertical-offset="420" max-vertical-offset="1440">
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#1478#1642#0" expanded="true" />
+                    <element signature="e#1631#1632#0" expanded="true" />
+                    <element signature="e#1969#3153#0" expanded="true" />
+                    <element signature="e#3142#3143#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="RegisterFragment.java" pinned="false" current="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/fragments/RegisterFragment.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="71" column="37" selection-start="2524" selection-end="2640" vertical-scroll-proportion="0.24157304" vertical-offset="651" max-vertical-offset="1470">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -214,24 +267,26 @@
         <option value="$PROJECT_DIR$/src/main/res/layout/manual_uid_entry.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/new_person_form.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/fragment_register.xml" />
-        <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/fragment_teams.xml" />
         <option value="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/components/Team.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/fragments/SettingsFragment.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/fragments/RegisterFragment.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/ManualActivity.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/NewPersonActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/fragments/MakeTeamsFragment.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/components/Person.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/fragments/MakeTeamsFragment.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/MainActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/signed_in.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/SignedInActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/fragments/SettingsFragment.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="51" />
+    <option name="x" value="58" />
     <option name="y" value="22" />
-    <option name="width" value="1389" />
-    <option name="height" value="878" />
+    <option name="width" value="1862" />
+    <option name="height" value="1058" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -408,6 +463,8 @@
       <recent name="$PROJECT_DIR$/src/main/res/layout" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/res/layout" />
+      <recent name="$PROJECT_DIR$/src/main/res/layout/fragments" />
       <recent name="$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser" />
     </key>
   </component>
@@ -634,39 +691,43 @@
       <created>1384933685075</created>
       <updated>1384933685075</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Remove more unnecessary code">
+      <created>1385007027381</created>
+      <updated>1385007027381</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="51" y="22" width="1389" height="878" extended-state="6" />
+    <frame x="58" y="22" width="1862" height="1058" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14393125" sideWeight="0.67150396" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41640705" sideWeight="0.6504021" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32694763" sideWeight="0.50187665" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.41640705" sideWeight="0.65037596" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.41640705" sideWeight="0.34962407" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32917964" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32606438" sideWeight="0.49731472" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3613707" sideWeight="0.7276139" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.102951765" sideWeight="0.67150396" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14285715" sideWeight="0.67150396" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14745587" sideWeight="0.49812332" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14423592" sideWeight="0.67150396" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3281412" sideWeight="0.4989282" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3281412" sideWeight="0.49812332" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -693,7 +754,8 @@
     <MESSAGE value="Lots of cool stuff." />
     <MESSAGE value="More cool stuff" />
     <MESSAGE value="Small things" />
-    <option name="LAST_COMMIT_MESSAGE" value="Small things" />
+    <MESSAGE value="Remove more unnecessary code" />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove more unnecessary code" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -701,53 +763,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_teams.xml">
-      <provider editor-type-id="text-editor">
-        <state line="8" column="4" selection-start="331" selection-end="331" vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="570">
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_settings.xml">
-      <provider editor-type-id="text-editor">
-        <state line="29" column="0" selection-start="1001" selection-end="1001" vertical-scroll-proportion="0.0" vertical-offset="435" max-vertical-offset="1125">
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_register.xml">
-      <provider editor-type-id="text-editor">
-        <state line="9" column="0" selection-start="503" selection-end="503" vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="1050">
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/new_person_form.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="98" column="21" selection-start="3560" selection-end="3994" vertical-scroll-proportion="0.0" vertical-offset="1470" max-vertical-offset="1605">
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/ManualActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="82" selection-start="1859" selection-end="1859" vertical-scroll-proportion="0.0" vertical-offset="735" max-vertical-offset="930">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="13" column="63" selection-start="637" selection-end="637" vertical-scroll-proportion="0.0" vertical-offset="195" max-vertical-offset="420">
@@ -772,7 +787,10 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/fragments/MakeTeamsFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="34" column="0" selection-start="1080" selection-end="1080" vertical-scroll-proportion="0.0" vertical-offset="510" max-vertical-offset="690">
-          <folding />
+          <folding>
+            <element signature="e#4655#4818#0" expanded="true" />
+            <element signature="e#4807#4808#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -901,16 +919,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_settings.xml">
-      <provider editor-type-id="text-editor">
-        <state line="29" column="0" selection-start="1001" selection-end="1001" vertical-scroll-proportion="0.0" vertical-offset="450" max-vertical-offset="1200">
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/manual_uid_entry.xml">
       <provider editor-type-id="text-editor">
         <state line="36" column="42" selection-start="1262" selection-end="1262" vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="885">
@@ -1001,13 +1009,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="44" selection-start="600" selection-end="600" vertical-scroll-proportion="0.3100511" vertical-offset="43" max-vertical-offset="630">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/components/Team.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="14" column="36" selection-start="309" selection-end="309" vertical-scroll-proportion="0.2589438" vertical-offset="43" max-vertical-offset="750">
@@ -1015,9 +1016,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/components/Person.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="77" column="0" selection-start="1841" selection-end="1841" vertical-scroll-proportion="0.0" vertical-offset="701" max-vertical-offset="1200">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_settings.xml">
+      <provider editor-type-id="text-editor">
+        <state line="29" column="0" selection-start="1001" selection-end="1001" vertical-scroll-proportion="0.0" vertical-offset="450" max-vertical-offset="1200">
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_teams.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="34" selection-start="1339" selection-end="1339" vertical-scroll-proportion="0.0" vertical-offset="85" max-vertical-offset="660">
+        <state line="36" column="34" selection-start="1339" selection-end="1339" vertical-scroll-proportion="-16.851852" vertical-offset="85" max-vertical-offset="660">
           <folding />
         </state>
       </provider>
@@ -1025,24 +1043,71 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/fragments/SettingsFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="136" column="52" selection-start="5455" selection-end="5455" vertical-scroll-proportion="2.5298126" vertical-offset="0" max-vertical-offset="1740">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/ManualActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="27" selection-start="2710" selection-end="2710" vertical-scroll-proportion="0.0" vertical-offset="355" max-vertical-offset="1215">
+        <state line="60" column="41" selection-start="2437" selection-end="2437" vertical-scroll-proportion="0.25143954" vertical-offset="649" max-vertical-offset="1170">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/fragments/RegisterFragment.java">
+    <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="26" selection-start="2474" selection-end="2474" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1470">
+        <state line="11" column="16" selection-start="410" selection-end="410" vertical-scroll-proportion="0.0" vertical-offset="59" max-vertical-offset="705">
+          <folding>
+            <element signature="e#513#531#0" expanded="true" />
+            <element signature="e#726#744#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/sdk/platforms/android-17/android.jar!/android/app/Instrumentation.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="112" column="16" selection-start="5963" selection-end="5963" vertical-scroll-proportion="0.33205375" vertical-offset="1492" max-vertical-offset="2370">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/signed_in.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="43" selection-start="149" selection-end="149" vertical-scroll-proportion="-1.1111112" vertical-offset="0" max-vertical-offset="135">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="299" column="52" selection-start="10623" selection-end="10711" vertical-scroll-proportion="0.0" vertical-offset="3799" max-vertical-offset="4785">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/sdk/platforms/android-17/android.jar!/android/app/Activity.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6555">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/libs/android-support-v4.jar!/android/support/v4/app/FragmentActivity.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="19" selection-start="1121" selection-end="1121" vertical-scroll-proportion="0.34879032" vertical-offset="232" max-vertical-offset="1845">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/SignedInActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="65" selection-start="1723" selection-end="1723" vertical-scroll-proportion="0.0" vertical-offset="420" max-vertical-offset="1440">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1478#1642#0" expanded="true" />
+            <element signature="e#1631#1632#0" expanded="true" />
+            <element signature="e#1969#3153#0" expanded="true" />
+            <element signature="e#3142#3143#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1055,21 +1120,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/fragments/MakeTeamsFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="186" column="62" selection-start="7426" selection-end="7426" vertical-scroll-proportion="0.0" vertical-offset="2248" max-vertical-offset="2940">
+        <state line="124" column="11" selection-start="4655" selection-end="4820" vertical-scroll-proportion="0.0" vertical-offset="1440" max-vertical-offset="3000">
+          <folding>
+            <element signature="e#4655#4818#0" expanded="true" />
+            <element signature="e#4807#4808#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/fragments/RegisterFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="71" column="37" selection-start="2524" selection-end="2640" vertical-scroll-proportion="0.24157304" vertical-offset="651" max-vertical-offset="1470">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/components/Person.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/fragments/SettingsFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="0" selection-start="1841" selection-end="1841" vertical-scroll-proportion="0.0" vertical-offset="701" max-vertical-offset="1200">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/ieee/c3/teamchooser/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="152" column="13" selection-start="5690" selection-end="5690" vertical-scroll-proportion="3.6372745" vertical-offset="30" max-vertical-offset="4785">
+        <state line="176" column="0" selection-start="6899" selection-end="6899" vertical-scroll-proportion="0.82725525" vertical-offset="1594" max-vertical-offset="2115">
           <folding />
         </state>
       </provider>

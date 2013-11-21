@@ -76,24 +76,6 @@ public class Person {
         return name;
     }
 
-    /**
-     * Used to display names in teams
-     *
-     * @return Shortened name, only last initial
-     */
-    public String getAbbrName() {
-        int lastName = 1;
-        // Index of last name initial
-        while (name.charAt(lastName - 1) != ' ' && lastName < name.length()) {
-            lastName++;
-        }
-        return name.substring(0, ++lastName) + ".";
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
     public List<String> getPreferences() {
         return preferences;
     }

@@ -32,6 +32,10 @@
             android:name="org.ieee.c3.teamchooser.ManualActivity"
             android:label="Manual Entry">
         </activity>
+        <activity
+            android:name="org.ieee.c3.teamchooser.SignedInActivity"
+            android:label="Signed In">
+        </activity>
     </application>
 
 </manifest>

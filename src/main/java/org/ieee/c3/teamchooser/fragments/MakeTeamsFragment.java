@@ -50,7 +50,7 @@ public class MakeTeamsFragment extends Fragment {
      * Uses the people that are currently signed in in order to create teams
      * <p/>
      * This algorithm first creates teams for people with preferences. Enough
-     * teams are created to accomodate those preferences. We then loop through
+     * teams are created to accommodate those preferences. We then loop through
      * the teams that were just created in order to finish of those teams. We
      * do this by introducing an exp tolerance difference delta, and if we do
      * not find a person with exp within range, we increase delta until we
@@ -88,11 +88,14 @@ public class MakeTeamsFragment extends Fragment {
                     if (pr.equals(p)) {
                         continue;
                     }
-                    if (prefs.get(0).equalsIgnoreCase(pr.getName()) && !toRemove.contains(pr.getName())) {
+                    if (prefs.get(0).equalsIgnoreCase(pr.getName())
+                            && !toRemove.contains(pr.getName())) {
                         t.addPerson(pr);
                         toRemove.add(pr.getName());
                     }
-                    if (prefs.size() > 1 && prefs.get(1).equalsIgnoreCase(pr.getName()) && !toRemove.contains(pr.getName())) {
+                    if (prefs.size() > 1
+                            && prefs.get(1).equalsIgnoreCase(pr.getName())
+                            && !toRemove.contains(pr.getName())) {
                         t.addPerson(pr);
                         toRemove.add(pr.getName());
                     }
@@ -131,7 +134,8 @@ public class MakeTeamsFragment extends Fragment {
                     i = people.iterator();
                     while (i.hasNext() && t.getPeople().size() < 3) {
                         Person p = i.next();
-                        if (p.getExp() >= t.getAvgExp() - delta && p.getExp() <= t.getAvgExp() + delta) {
+                        if (p.getExp() >= t.getAvgExp() - delta
+                                && p.getExp() <= t.getAvgExp() + delta) {
                             t.addPerson(p);
                             i.remove();
                         }

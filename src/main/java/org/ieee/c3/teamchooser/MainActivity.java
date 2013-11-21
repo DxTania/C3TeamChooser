@@ -332,7 +332,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      *
      * @return A string representing all people signed in
      */
-    private String getPeopleString() {
+    public String getPeopleString() {
         String result = "";
         for (Person p : todaysPeople) {
             result += p.toString() + ";";
